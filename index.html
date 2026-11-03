@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#172720">
+  <title>El archivo de la memoria gastronómica</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+  <script defer src="game.js"></script>
+</head>
+<body>
+  <main id="game">
+    <a-scene
+      embedded
+      renderer="colorManagement: true; antialias: true"
+      background="color: #172720"
+      vr-mode-ui="enabled: true"
+      shadow="type: pcfsoft">
+      <a-assets>
+        <img id="fish-tank-image" src="Image/pecera.jpg" alt="">
+        <a-mixin id="wood" material="color: #754729; roughness: 0.78"></a-mixin>
+        <a-mixin id="cream" material="color: #e8d8b8; roughness: 0.9"></a-mixin>
+        <a-mixin id="gold" material="color: #d7a74f; metalness: 0.15; roughness: 0.38"></a-mixin>
+      </a-assets>
+
+      <a-entity light="type: ambient; color: #fff0d3; intensity: 1.25"></a-entity>
+      <a-entity light="type: directional; color: #ffe0aa; intensity: 2.2; castShadow: true" position="-3 7 4"></a-entity>
+      <a-entity light="type: point; color: #ffbd69; intensity: 1.2; distance: 12" position="0 3 0"></a-entity>
+      <a-entity light="type: point; color: #75b8bd; intensity: 0.8; distance: 8" position="-4 2 -7"></a-entity>
+
+      <!-- Two connected restaurant rooms -->
+      <a-box position="0 -0.15 0" width="12" height="0.3" depth="18" material="color: #805637; roughness: 0.8"></a-box>
+      <a-box position="0 4.1 0" width="12" height="0.3" depth="18" material="color: #3a3027"></a-box>
+      <a-box position="-6 2 0" width="0.3" height="4" depth="18" mixin="cream"></a-box>
+      <a-box position="6 2 0" width="0.3" height="4" depth="18" mixin="cream"></a-box>
+      <a-box position="-4.45 2 0" width="3.1" height="4" depth="0.3" mixin="cream"></a-box>
+      <a-box position="4.45 2 0" width="3.1" height="4" depth="0.3" mixin="cream"></a-box>
+      <a-box position="0 3.65 0" width="5.8" height="0.7" depth="0.3" mixin="cream"></a-box>
+      <a-box position="0 2 9" width="12" height="4" depth="0.3" mixin="cream"></a-box>
+      <a-box position="-4.45 2 -9" width="3.1" height="4" depth="0.3" mixin="cream"></a-box>
+      <a-box position="4.45 2 -9" width="3.1" height="4" depth="0.3" mixin="cream"></a-box>
+      <a-box position="0 3.55 -9" width="5.8" height="0.9" depth="0.3" mixin="cream"></a-box>
+      <a-box position="0 1.45 -9" width="5.8" height="2.9" depth="0.22" material="color: #423322"></a-box>
+      <a-box position="0 1.45 -8.86" width="5.4" height="2.6" material="color: #695035"></a-box>
+      <a-text value="SALÓN DE LAS MEMORIAS" position="-2.25 3.35 -8.65" width="5" color="#f0d498" align="center"></a-text>
+
+      <!-- Restaurant kitchen: tiled floor, prep counters, stove, fryer and produce baskets -->
+      <a-box position="0 0.015 -4.5" width="11.7" height="0.035" depth="8.9" material="color: #555953; roughness: 0.8"></a-box>
+      <a-box position="0 0.04 -4.5" width="0.035" height="0.025" depth="8.9" material="color: #aaa394"></a-box>
+      <a-box position="-3 0.04 -4.5" width="0.035" height="0.025" depth="8.9" material="color: #aaa394"></a-box>
+      <a-box position="3 0.04 -4.5" width="0.035" height="0.025" depth="8.9" material="color: #aaa394"></a-box>
+      <a-box position="0 0.04 -2.25" width="11.7" height="0.025" depth="0.035" material="color: #aaa394"></a-box>
+      <a-box position="0 0.04 -4.5" width="11.7" height="0.025" depth="0.035" material="color: #aaa394"></a-box>
+      <a-box position="0 0.04 -6.75" width="11.7" height="0.025" depth="0.035" material="color: #aaa394"></a-box>
+      <a-text value="COCINA" position="2.5 3.45 -8.62" width="3" color="#f0d498" align="center"></a-text>
+
+      <!-- Produce display: hand-woven baskets and vegetables -->
+      <a-entity position="-4.45 0 -3.3">
+        <a-cylinder radius="0.67" height="0.48" position="0 0.25 0" material="color: #a76d36; roughness: 0.92"></a-cylinder>
+        <a-cylinder radius="0.62" height="0.12" position="0 0.49 0" material="color: #c28a4b"></a-cylinder>
+        <a-torus radius="0.62" radius-tubular="0.055" position="0 0.53 0" material="color: #d3a465"></a-torus>
+        <a-sphere radius="0.22" position="-0.28 0.75 0.05" material="color: #b94a36"></a-sphere>
+        <a-sphere radius="0.23" position="0.12 0.78 -0.15" material="color: #cf5038"></a-sphere>
+        <a-sphere radius="0.2" position="0.33 0.72 0.2" material="color: #e2a947"></a-sphere>
+        <a-sphere radius="0.21" position="-0.03 0.91 0.2" material="color: #6f934d"></a-sphere>
+        <a-cone radius-bottom="0.12" radius-top="0.015" height="0.48" position="-0.31 0.82 -0.22" rotation="0 0 -18" material="color: #e27e35"></a-cone>
+        <a-cone radius-bottom="0.12" radius-top="0.015" height="0.44" position="0.23 0.86 0.08" rotation="0 0 16" material="color: #e9893c"></a-cone>
+        <a-text value="CANASTA DE VERDURAS" position="-0.85 1.25 0" width="1.8" align="center" color="#fff1d2"></a-text>
+      </a-entity>
+      <a-entity position="-4.45 0 -5.55">
+        <a-cylinder radius="0.64" height="0.45" position="0 0.23 0" material="color: #8d5c34"></a-cylinder>
+        <a-cylinder radius="0.59" height="0.1" position="0 0.46 0" material="color: #c28a4b"></a-cylinder>
+        <a-torus radius="0.6" radius-tubular="0.05" position="0 0.5 0" material="color: #d3a465"></a-torus>
+        <a-sphere radius="0.2" position="-0.24 0.68 0.03" material="color: #e4b83f"></a-sphere>
+        <a-sphere radius="0.2" position="0.12 0.72 -0.08" material="color: #e4b83f"></a-sphere>
+        <a-sphere radius="0.19" position="0.29 0.67 0.16" material="color: #77a354"></a-sphere>
+        <a-sphere radius="0.18" position="-0.08 0.88 0.17" material="color: #79a958"></a-sphere>
+        <a-text value="MAÍZ Y CALABAZA" position="-0.8 1.2 0" width="1.7" align="center" color="#fff1d2"></a-text>
+      </a-entity>
+
+      <!-- Stainless prep counter and sink -->
+      <a-box position="-4.9 0.48 -7.55" width="1.45" height="0.92" depth="2.35" material="color: #707873; metalness: 0.58; roughness: 0.42"></a-box>
+      <a-box position="-4.9 0.98 -7.55" width="1.65" height="0.12" depth="2.55" material="color: #aab0a9; metalness: 0.7; roughness: 0.28"></a-box>
+      <a-box position="-4.9 1.055 -7.55" width="0.76" height="0.035" depth="1.05" material="color: #374c4a; metalness: 0.35; roughness: 0.24"></a-box>
+      <a-torus radius="0.19" radius-tubular="0.035" position="-4.9 1.11 -7.55" rotation="90 0 0" material="color: #c4c9c1; metalness: 0.8"></a-torus>
+      <a-cylinder radius="0.035" height="0.4" position="-4.9 1.3 -7.05" material="color: #bfc7c1; metalness: 0.8"></a-cylinder>
+      <a-torus radius="0.16" radius-tubular="0.025" position="-4.9 1.48 -7.05" rotation="90 0 0" material="color: #bfc7c1; metalness: 0.8"></a-torus>
+      <a-text value="ÁREA DE PREPARACIÓN" position="-5.7 2.25 -8.5" width="2.2" align="center" color="#f0d498"></a-text>
+
+      <!-- Commercial range, oven, stock pot and hood -->
+      <a-box position="4.65 0.48 -6.05" width="1.75" height="0.9" depth="4.65" material="color: #59615e; metalness: 0.62; roughness: 0.38"></a-box>
+      <a-box position="4.65 0.98 -6.05" width="1.9" height="0.13" depth="4.85" material="color: #b1b8b2; metalness: 0.75; roughness: 0.28"></a-box>
+      <a-box position="3.73 0.52 -6.05" width="0.04" height="0.52" depth="1.15" material="color: #202725; metalness: 0.32"></a-box>
+      <a-box position="3.7 0.52 -6.05" width="0.035" height="0.34" depth="0.66" material="color: #32403e; metalness: 0.45"></a-box>
+      <a-sphere radius="0.045" position="3.67 0.78 -6.42" material="color: #d2a44c; metalness: 0.45"></a-sphere>
+      <a-sphere radius="0.045" position="3.67 0.78 -6.05" material="color: #d2a44c; metalness: 0.45"></a-sphere>
+      <a-sphere radius="0.045" position="3.67 0.78 -5.68" material="color: #d2a44c; metalness: 0.45"></a-sphere>
+      <a-torus radius="0.24" radius-tubular="0.035" position="4.25 1.08 -6.75" rotation="90 0 0" material="color: #333a36"></a-torus>
+      <a-torus radius="0.24" radius-tubular="0.035" position="5.02 1.08 -6.75" rotation="90 0 0" material="color: #333a36"></a-torus>
+      <a-torus radius="0.24" radius-tubular="0.035" position="4.25 1.08 -5.45" rotation="90 0 0" material="color: #333a36"></a-torus>
+      <a-torus radius="0.24" radius-tubular="0.035" position="5.02 1.08 -5.45" rotation="90 0 0" material="color: #333a36"></a-torus>
+      <a-entity class="clickable" data-action="soup" data-object="soup" position="4.66 1.03 -6.08">
+        <a-cylinder radius="0.38" radius-top="0.51" radius-bottom="0.4" height="0.65" position="0 0.36 0" material="color: #68716e; metalness: 0.72; roughness: 0.28"></a-cylinder>
+        <a-cylinder radius="0.42" height="0.075" position="0 0.07 0" material="color: #4a514f; metalness: 0.66; roughness: 0.35"></a-cylinder>
+        <a-torus radius="0.51" radius-tubular="0.045" position="0 0.695 0" rotation="90 0 0" material="color: #c7ccc7; metalness: 0.82; roughness: 0.22"></a-torus>
+        <a-circle radius="0.47" position="0 0.68 0" rotation="-90 0 0" material="color: #8d5427; roughness: 0.38"></a-circle>
+        <a-circle radius="0.43" position="0 0.685 0" rotation="-90 0 0" material="color: #bd7835; roughness: 0.4"></a-circle>
+        <a-torus radius="0.52" radius-tubular="0.024" position="0 0.42 0" rotation="90 0 0" material="color: #89918c; metalness: 0.8; roughness: 0.28"></a-torus>
+
+        <!-- Pot handles -->
+        <a-torus radius="0.16" radius-tubular="0.035" position="-0.56 0.45 0" rotation="0 90 0" material="color: #9da59f; metalness: 0.78"></a-torus>
+        <a-torus radius="0.16" radius-tubular="0.035" position="0.56 0.45 0" rotation="0 90 0" material="color: #9da59f; metalness: 0.78"></a-torus>
+
+        <!-- Visible ingredients simmering in the pot -->
+        <a-sphere radius="0.18" position="-0.22 0.74 0.08" scale="1.15 0.68 0.9" rotation="0 0 -18" material="color: #9a492b; roughness: 0.62"></a-sphere>
+        <a-sphere radius="0.11" position="-0.3 0.78 0.1" scale="1.1 0.7 0.85" material="color: #dfa35b; roughness: 0.55"></a-sphere>
+        <a-cylinder radius="0.035" height="0.16" position="-0.43 0.77 0.12" rotation="0 0 65" material="color: #eadcc3; roughness: 0.6"></a-cylinder>
+        <a-sphere radius="0.14" position="0.12 0.76 -0.18" scale="1.1 0.65 0.9" material="color: #d7ae64; roughness: 0.68"></a-sphere>
+        <a-sphere radius="0.13" position="0.28 0.76 0.15" scale="1 0.7 0.92" material="color: #c99a4e; roughness: 0.68"></a-sphere>
+        <a-cylinder radius="0.07" height="0.34" position="-0.02 0.78 0.12" rotation="0 0 90" material="color: #dfb43c; roughness: 0.48"></a-cylinder>
+        <a-sphere radius="0.025" position="-0.15 0.82 0.17" material="color: #f5d761"></a-sphere>
+        <a-sphere radius="0.025" position="-0.08 0.83 0.18" material="color: #eabe3c"></a-sphere>
+        <a-sphere radius="0.025" position="-0.01 0.83 0.18" material="color: #f5d761"></a-sphere>
+        <a-sphere radius="0.025" position="0.06 0.83 0.18" material="color: #eabe3c"></a-sphere>
+        <a-sphere radius="0.025" position="0.13 0.82 0.17" material="color: #f5d761"></a-sphere>
+        <a-sphere radius="0.034" position="0.07 0.75 0.02" scale="1.5 0.3 0.7" rotation="0 0 18" material="color: #648342; roughness: 0.85"></a-sphere>
+        <a-sphere radius="0.03" position="0.14 0.76 0.06" scale="1.4 0.3 0.7" rotation="0 0 -20" material="color: #78934a; roughness: 0.85"></a-sphere>
+        <a-sphere radius="0.023" position="0.37 0.74 -0.05" material="color: #c5462f"></a-sphere>
+
+        <!-- Steam rises above the simmering sancocho -->
+        <a-sphere position="-0.17 0.92 0" radius="0.075" scale="0.65 1.5 0.65" material="color: #fff5e8; opacity: 0.32; transparent: true; depthWrite: false"
+          animation__rise="property: position; from: -0.17 0.88 0; to: -0.22 1.72 0; dur: 2300; easing: easeOutSine; loop: true"
+          animation__fade="property: material.opacity; from: 0.3; to: 0; dur: 2300; easing: easeOutSine; loop: true"
+          animation__drift="property: scale; from: 0.45 0.8 0.45; to: 0.9 1.8 0.9; dur: 2300; easing: easeOutSine; loop: true"></a-sphere>
+        <a-sphere position="0.02 0.96 0.02" radius="0.065" scale="0.7 1.4 0.7" material="color: #fff5e8; opacity: 0.28; transparent: true; depthWrite: false"
+          animation__rise="property: position; from: 0.02 0.9 0.02; to: 0.08 1.85 0.02; dur: 2700; delay: 650; easing: easeOutSine; loop: true"
+          animation__fade="property: material.opacity; from: 0.28; to: 0; dur: 2700; delay: 650; easing: easeOutSine; loop: true"
+          animation__drift="property: scale; from: 0.45 0.8 0.45; to: 0.95 1.9 0.95; dur: 2700; delay: 650; easing: easeOutSine; loop: true"></a-sphere>
+        <a-sphere position="0.2 0.92 -0.02" radius="0.06" scale="0.65 1.5 0.65" material="color: #fff5e8; opacity: 0.3; transparent: true; depthWrite: false"
+          animation__rise="property: position; from: 0.2 0.88 -0.02; to: 0.14 1.78 -0.02; dur: 2500; delay: 1200; easing: easeOutSine; loop: true"
+          animation__fade="property: material.opacity; from: 0.3; to: 0; dur: 2500; delay: 1200; easing: easeOutSine; loop: true"
+          animation__drift="property: scale; from: 0.4 0.8 0.4; to: 0.85 1.8 0.85; dur: 2500; delay: 1200; easing: easeOutSine; loop: true"></a-sphere>
+        <a-text value="SANCOCHO" position="-0.52 1.87 0.04" width="1.3" align="center" color="#fff1d2"></a-text>
+      </a-entity>
+      <a-box position="4.7 3.05 -6.05" width="2.1" height="0.24" depth="2.8" material="color: #89918c; metalness: 0.7; roughness: 0.34"></a-box>
+      <a-box position="4.7 2.91 -6.05" width="1.55" height="0.09" depth="2.15" material="color: #414844; metalness: 0.48"></a-box>
+      <a-box position="4.7 3.42 -7.08" width="0.66" height="0.62" depth="0.65" material="color: #858d87; metalness: 0.65"></a-box>
+      <a-cylinder radius="0.32" height="0.08" position="4.7 3.78 -7.08" material="color: #747d77; metalness: 0.7"></a-cylinder>
+      <a-text value="ESTUFA · OLLA DE SANCOCHO" position="3.68 2.1 -8.38" width="2.4" align="center" color="#f0d498"></a-text>
+
+      <!-- Deep fryer with oil and removable basket -->
+      <a-box position="4.55 0.78 -3.55" width="1.5" height="1.25" depth="1.2" material="color: #777f79; metalness: 0.7; roughness: 0.32"></a-box>
+      <a-box position="4.55 1.43 -3.55" width="1.58" height="0.12" depth="1.28" material="color: #c1c6c0; metalness: 0.8"></a-box>
+      <a-box position="4.55 1.51 -3.55" width="0.92" height="0.045" depth="0.75" material="color: #806334; metalness: 0.2; roughness: 0.3"></a-box>
+      <a-box position="4.55 1.76 -3.55" width="0.62" height="0.38" depth="0.54" material="color: #9ba29c; metalness: 0.68; roughness: 0.35"></a-box>
+      <a-box position="4.55 1.98 -3.55" width="0.06" height="0.3" depth="0.06" material="color: #b7beb8; metalness: 0.7"></a-box>
+      <a-sphere radius="0.05" position="3.8 1.18 -3.55" material="color: #dcaa50; metalness: 0.4"></a-sphere>
+      <a-text value="FREIDORA" position="3.8 2.22 -4.28" width="1.7" align="center" color="#f0d498"></a-text>
+
+      <!-- Restaurant dining room: smaller table settings and chairs -->
+      <a-entity position="-3.85 0 5.4">
+        <a-box position="0 0.78 0" width="1.7" height="0.14" depth="1.35" mixin="wood"></a-box>
+        <a-box position="-0.65 0.39 -0.48" width="0.1" height="0.78" depth="0.1" mixin="wood"></a-box>
+        <a-box position="0.65 0.39 -0.48" width="0.1" height="0.78" depth="0.1" mixin="wood"></a-box>
+        <a-box position="-0.65 0.39 0.48" width="0.1" height="0.78" depth="0.1" mixin="wood"></a-box>
+        <a-box position="0.65 0.39 0.48" width="0.1" height="0.78" depth="0.1" mixin="wood"></a-box>
+        <a-cylinder radius="0.16" height="0.035" position="-0.28 0.88 0" material="color: #e8dfc7"></a-cylinder>
+        <a-cylinder radius="0.16" height="0.035" position="0.28 0.88 0" material="color: #e8dfc7"></a-cylinder>
+        <a-sphere radius="0.075" position="-0.28 0.92 0" material="color: #b44d38"></a-sphere>
+        <a-sphere radius="0.075" position="0.28 0.92 0" material="color: #d6a64d"></a-sphere>
+      </a-entity>
+      <a-entity position="3.85 0 5.4">
+        <a-box position="0 0.78 0" width="1.7" height="0.14" depth="1.35" mixin="wood"></a-box>
+        <a-box position="-0.65 0.39 -0.48" width="0.1" height="0.78" depth="0.1" mixin="wood"></a-box>
+        <a-box position="0.65 0.39 -0.48" width="0.1" height="0.78" depth="0.1" mixin="wood"></a-box>
+        <a-box position="-0.65 0.39 0.48" width="0.1" height="0.78" depth="0.1" mixin="wood"></a-box>
+        <a-box position="0.65 0.39 0.48" width="0.1" height="0.78" depth="0.1" mixin="wood"></a-box>
+        <a-cylinder radius="0.16" height="0.035" position="-0.28 0.88 0" material="color: #e8dfc7"></a-cylinder>
+        <a-cylinder radius="0.16" height="0.035" position="0.28 0.88 0" material="color: #e8dfc7"></a-cylinder>
+        <a-sphere radius="0.075" position="-0.28 0.92 0" material="color: #b44d38"></a-sphere>
+        <a-sphere radius="0.075" position="0.28 0.92 0" material="color: #d6a64d"></a-sphere>
+      </a-entity>
+
+      <!-- Wall art in the front room -->
+      <a-entity class="clickable" data-action="maize" data-object="maize" position="-5.78 2.15 3.1" rotation="0 90 0">
+        <a-box width="1.7" height="1.55" depth="0.1" mixin="gold"></a-box>
+        <a-box width="1.48" height="1.32" depth="0.08" position="0 0 0.07" material="color: #47634b"></a-box>
+        <a-cylinder radius="0.12" height="0.75" position="-0.35 -0.06 0.16" rotation="0 0 10" material="color: #e4b943"></a-cylinder>
+        <a-cylinder radius="0.12" height="0.75" position="0 -0.06 0.16" rotation="0 0 -7" material="color: #f0cd62"></a-cylinder>
+        <a-cylinder radius="0.12" height="0.75" position="0.35 -0.06 0.16" rotation="0 0 10" material="color: #d49b31"></a-cylinder>
+        <a-text value="MAÍZ Y MEMORIA" position="0 -0.56 0.17" width="1.3" align="center" color="#fff4d5"></a-text>
+      </a-entity>
+      <a-entity position="-5.78 2.2 -1.15" rotation="0 90 0">
+        <a-box width="1.7" height="1.45" depth="0.1" mixin="gold"></a-box>
+        <a-box width="1.48" height="1.23" depth="0.08" position="0 0 0.07" material="color: #bd7652"></a-box>
+        <a-box width="1.05" height="0.32" depth="0.13" position="0 -0.15 0.17" material="color: #e5c27b"></a-box>
+        <a-box width="1.08" height="0.16" depth="0.13" position="0 0.08 0.17" material="color: #6f9b5b"></a-box>
+        <a-text value="SÁNDWICHES" position="0 -0.48 0.18" width="1.2" align="center" color="#fff4d5"></a-text>
+      </a-entity>
+      <a-entity class="clickable" data-action="map" data-object="map" position="5.78 2.2 1.1" rotation="0 -90 0">
+        <a-box width="1.9" height="1.5" depth="0.12" mixin="gold"></a-box>
+        <a-box width="1.68" height="1.28" depth="0.08" position="0 0 0.08" material="color: #467a78"></a-box>
+        <a-sphere radius="0.48" position="0 0.05 0.18" material="color: #73a16b; roughness: 0.8"></a-sphere>
+        <a-torus radius="0.53" radius-tubular="0.025" position="0 0.05 0.2" rotation="90 0 0" material="color: #e6d6a8"></a-torus>
+        <a-text value="RUTAS LATINAS" position="0 -0.52 0.2" width="1.35" align="center" color="#fff4d5"></a-text>
+      </a-entity>
+      <a-entity class="clickable" data-action="soup" data-object="soup" position="5.78 2.05 -2.35" rotation="0 -90 0">
+        <a-box width="1.55" height="1.4" depth="0.1" mixin="gold"></a-box>
+        <a-box width="1.34" height="1.2" depth="0.08" position="0 0 0.07" material="color: #a45d3c"></a-box>
+        <a-cylinder radius="0.42" height="0.15" position="0 -0.13 0.17" material="color: #eee1bf"></a-cylinder>
+        <a-circle radius="0.34" position="0 -0.04 0.26" material="color: #b98a44"></a-circle>
+        <a-text value="SOPAS" position="0 -0.48 0.18" width="1.2" align="center" color="#fff4d5"></a-text>
+      </a-entity>
+
+      <!-- Dining table with an interactive plated ear of corn -->
+      <a-cylinder position="0 0.9 1.3" radius="1.75" height="0.22" mixin="wood"></a-cylinder>
+      <a-cylinder position="0 0.43 1.3" radius="0.16" height="0.8" mixin="wood"></a-cylinder>
+      <a-cylinder position="0 0.12 1.3" radius="0.7" height="0.16" mixin="wood"></a-cylinder>
+      <a-entity class="clickable" data-action="intro" data-object="intro" position="0 0.99 1.3">
+        <a-cylinder radius="0.33" height="0.06" material="color: #d8c49c"></a-cylinder>
+        <a-torus radius="0.24" radius-tubular="0.025" position="0 0.06 0" rotation="90 0 0" material="color: #a64e37"></a-torus>
+        <a-text value="ARCHIVO" position="-0.42 0.45 0" width="1.3" align="center" color="#fff1d2"></a-text>
+      </a-entity>
+      <a-entity class="clickable" data-action="maize" data-object="maize" position="-0.82 1.02 1.3" corn-platter>
+        <a-text value="ELOTE" position="-0.2 0.4 0" width="0.8" align="center" color="#fff1d2"></a-text>
+      </a-entity>
+
+      <a-entity class="clickable" data-action="cuban" data-object="cuban-extra" position="-2.5 0.03 1.25">
+        <a-cylinder radius="0.34" height="0.08" material="color: #d9c8a9"></a-cylinder>
+        <a-box width="0.6" height="0.22" depth="0.24" position="0 0.16 0" rotation="0 0 -7" material="color: #d5a35b"></a-box>
+        <a-box width="0.49" height="0.08" depth="0.2" position="0 0.17 0" material="color: #9c4c36"></a-box>
+        <a-text value="SÁNDWICH CUBANO" position="-0.8 0.52 0" width="1.8" align="center" color="#fff1d2"></a-text>
+      </a-entity>
+
+      <a-entity class="clickable" data-action="chair" data-object="chair" position="2.8 0 3.1">
+        <a-box position="0 0.5 0" width="0.72" height="0.13" depth="0.7" mixin="wood"></a-box>
+        <a-box position="0 1.05 -0.28" width="0.72" height="0.95" depth="0.12" mixin="wood"></a-box>
+        <a-box position="-0.27 0.25 -0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+        <a-box position="0.27 0.25 -0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+        <a-box position="-0.27 0.25 0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+        <a-box position="0.27 0.25 0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+        <a-text value="SILLA" position="-0.35 1.7 0" width="1" align="center" color="#fff1d2"></a-text>
+      </a-entity>
+      <a-entity position="-2.9 0 3.15" rotation="0 180 0">
+        <a-box position="0 0.5 0" width="0.72" height="0.13" depth="0.7" mixin="wood"></a-box>
+        <a-box position="0 1.05 -0.28" width="0.72" height="0.95" depth="0.12" mixin="wood"></a-box>
+        <a-box position="-0.27 0.25 -0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+        <a-box position="0.27 0.25 -0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+        <a-box position="-0.27 0.25 0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+        <a-box position="0.27 0.25 0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+      </a-entity>
+
+      <!-- Second room: tropical fish tank and plants -->
+      <a-entity class="clickable" data-action="cuban" data-object="fish-tank" position="0 1.9 -4.6">
+        <!-- Cabinet and framed glass tank -->
+        <a-box width="3.45" height="0.62" depth="1.02" position="0 -1.08 0" material="color: #493328; roughness: 0.62"></a-box>
+        <a-box width="3.5" height="0.09" depth="1.08" position="0 -0.75 0" material="color: #81543b; roughness: 0.45"></a-box>
+        <a-box width="3.2" height="1.45" depth="0.78" position="0 0 0" material="color: #123b43; roughness: 0.38"></a-box>
+        <a-box width="3.34" height="0.12" depth="0.92" position="0 -0.77 0" material="color: #302f2a; metalness: 0.3; roughness: 0.42"></a-box>
+        <a-box width="3.34" height="0.12" depth="0.92" position="0 0.77 0" material="color: #302f2a; metalness: 0.3; roughness: 0.42"></a-box>
+        <a-box width="0.12" height="1.45" depth="0.92" position="-1.61 0 0" material="color: #343531; metalness: 0.24; roughness: 0.45"></a-box>
+        <a-box width="0.12" height="1.45" depth="0.92" position="1.61 0 0" material="color: #343531; metalness: 0.24; roughness: 0.45"></a-box>
+        <a-box width="3.15" height="1.35" depth="0.025" position="0 0 0.405" material="color: #8edbe0; opacity: 0.13; transparent: true; metalness: 0.3; roughness: 0.12; side: double"></a-box>
+        <a-plane width="3.12" height="1.34" position="0 0 0.427" material="src: #fish-tank-image; side: double; shader: flat; roughness: 0.5"></a-plane>
+        <a-plane width="3.12" height="1.34" position="0 0 -0.427" rotation="0 180 0" material="src: #fish-tank-image; side: double; shader: flat; roughness: 0.5"></a-plane>
+
+        <!-- Sand, pebbles and natural aquarium decorations -->
+        <a-box width="3.05" height="0.13" depth="0.69" position="0 -0.61 0" material="color: #c4a66f; roughness: 0.96"></a-box>
+        <a-sphere radius="0.18" position="-0.92 -0.51 0.08" scale="1.55 0.65 0.75" material="color: #6f766b; roughness: 0.94"></a-sphere>
+        <a-sphere radius="0.14" position="-0.7 -0.52 -0.06" scale="1.35 0.7 0.8" material="color: #858779; roughness: 0.94"></a-sphere>
+        <a-sphere radius="0.21" position="0.9 -0.5 -0.12" scale="1.65 0.62 0.75" material="color: #6b7168; roughness: 0.94"></a-sphere>
+        <a-sphere radius="0.13" position="1.1 -0.51 0.06" scale="1.25 0.65 0.8" material="color: #99917b; roughness: 0.94"></a-sphere>
+        <a-sphere radius="0.024" position="-1.25 -0.49 0.16" material="color: #d7ba78"></a-sphere>
+        <a-sphere radius="0.03" position="-0.37 -0.49 0.12" material="color: #8e7757"></a-sphere>
+        <a-sphere radius="0.022" position="0.48 -0.49 0.16" material="color: #e0c58c"></a-sphere>
+        <a-sphere radius="0.028" position="1.32 -0.49 0.11" material="color: #8e7757"></a-sphere>
+
+        <!-- Aquatic plants -->
+        <a-cylinder radius="0.025" height="0.72" position="-1.22 -0.19 -0.19" rotation="0 0 -12" material="color: #39754f"></a-cylinder>
+        <a-sphere radius="0.13" position="-1.28 0.05 -0.18" scale="0.34 1.5 0.45" rotation="0 0 -26" material="color: #53a264"></a-sphere>
+        <a-sphere radius="0.12" position="-1.05 -0.08 -0.2" scale="0.32 1.65 0.4" rotation="0 0 18" material="color: #3e8757"></a-sphere>
+        <a-sphere radius="0.11" position="-1.3 -0.28 0.02" scale="0.3 1.35 0.4" rotation="0 0 -38" material="color: #68a95c"></a-sphere>
+        <a-cylinder radius="0.02" height="0.6" position="1.25 -0.25 -0.18" rotation="0 0 16" material="color: #47794a"></a-cylinder>
+        <a-sphere radius="0.12" position="1.31 -0.03 -0.17" scale="0.32 1.5 0.4" rotation="0 0 32" material="color: #65a85e"></a-sphere>
+        <a-sphere radius="0.12" position="1.12 -0.17 -0.16" scale="0.3 1.45 0.4" rotation="0 0 -22" material="color: #398452"></a-sphere>
+
+        <!-- Fish with fins, eyes and natural swimming motion -->
+        <a-entity position="-0.62 0.17 0.14" animation="property: position; from: -0.78 0.17 0.14; to: -0.46 0.22 0.14; dur: 3200; dir: alternate; easing: easeInOutSine; loop: true">
+          <a-sphere radius="0.19" scale="1.45 0.88 0.72" material="color: #ed9f4f; roughness: 0.38"></a-sphere>
+          <a-cone radius-bottom="0.14" radius-top="0" height="0.28" position="-0.31 0 0" rotation="0 0 90" material="color: #e8ba68; roughness: 0.42"></a-cone>
+          <a-cone radius-bottom="0.09" radius-top="0" height="0.16" position="0 0.16 0" rotation="0 0 180" material="color: #db8146"></a-cone>
+          <a-sphere radius="0.035" position="0.19 0.035 0.11" material="color: #fff2d6"></a-sphere>
+          <a-sphere radius="0.018" position="0.205 0.035 0.137" material="color: #17211d"></a-sphere>
+        </a-entity>
+        <a-entity position="0.45 -0.12 0.12" animation="property: position; from: 0.62 -0.12 0.12; to: 0.28 -0.06 0.12; dur: 3800; dir: alternate; easing: easeInOutSine; loop: true">
+          <a-sphere radius="0.15" scale="1.4 0.82 0.7" material="color: #df7654; roughness: 0.4"></a-sphere>
+          <a-cone radius-bottom="0.12" radius-top="0" height="0.24" position="-0.27 0 0" rotation="0 0 90" material="color: #d88a5b"></a-cone>
+          <a-cone radius-bottom="0.075" radius-top="0" height="0.14" position="0 0.13 0" rotation="0 0 180" material="color: #c85c48"></a-cone>
+          <a-sphere radius="0.028" position="0.15 0.025 0.09" material="color: #fff2d6"></a-sphere>
+          <a-sphere radius="0.015" position="0.163 0.025 0.112" material="color: #17211d"></a-sphere>
+        </a-entity>
+        <a-entity position="0.35 0.4 -0.12" animation="property: position; from: 0.22 0.38 -0.12; to: 0.48 0.43 -0.12; dur: 2900; dir: alternate; easing: easeInOutSine; loop: true">
+          <a-sphere radius="0.105" scale="1.35 0.82 0.72" material="color: #d9bf68; roughness: 0.4"></a-sphere>
+          <a-cone radius-bottom="0.08" radius-top="0" height="0.17" position="-0.19 0 0" rotation="0 0 90" material="color: #c6a956"></a-cone>
+          <a-sphere radius="0.02" position="0.105 0.02 0.07" material="color: #15201b"></a-sphere>
+        </a-entity>
+
+        <!-- Rising air bubbles -->
+        <a-sphere radius="0.035" position="0.86 -0.38 0.18" material="color: #c9f3f0; opacity: 0.65; transparent: true; roughness: 0.1"
+          animation="property: position; from: 0.86 -0.4 0.18; to: 0.83 0.58 0.18; dur: 4200; easing: linear; loop: true"></a-sphere>
+        <a-sphere radius="0.022" position="0.92 -0.35 0.18" material="color: #c9f3f0; opacity: 0.62; transparent: true; roughness: 0.1"
+          animation="property: position; from: 0.92 -0.4 0.18; to: 0.96 0.62 0.18; dur: 3600; delay: 1100; easing: linear; loop: true"></a-sphere>
+        <a-sphere radius="0.028" position="0.8 -0.35 0.18" material="color: #c9f3f0; opacity: 0.58; transparent: true; roughness: 0.1"
+          animation="property: position; from: 0.8 -0.4 0.18; to: 0.77 0.55 0.18; dur: 3900; delay: 2200; easing: linear; loop: true"></a-sphere>
+
+        <!-- Glass reflections and readable interactive label -->
+        <a-box width="0.035" height="1.14" depth="0.012" position="-1.48 0.02 0.43" material="color: #efffff; opacity: 0.34; transparent: true"></a-box>
+        <a-box width="0.035" height="1.14" depth="0.012" position="-1.39 0.02 0.43" material="color: #efffff; opacity: 0.18; transparent: true"></a-box>
+        <a-text value="PECERA · HISTORIAS DEL SÁNDWICH" position="-1.33 1.02 0.48" width="3" color="#fff1d2" align="center"></a-text>
+      </a-entity>
+      <a-entity class="clickable" data-action="cuban" data-object="cuban-extra" position="4.8 0.15 -5.3">
+        <a-cylinder radius="0.19" height="0.45" material="color: #69b4a2; opacity: 0.8; transparent: true"></a-cylinder>
+        <a-cylinder radius="0.2" height="0.05" position="0 0.25 0" material="color: #83c48d"></a-cylinder>
+        <a-text value="BEBIDA TROPICAL" position="-0.75 0.65 0" width="1.5" align="center" color="#fff1d2"></a-text>
+      </a-entity>
+      <a-entity position="-5.3 0 -6.9">
+        <a-cylinder radius="0.42" height="0.55" material="color: #a95f40"></a-cylinder>
+        <a-sphere radius="0.65" position="0 0.85 0" scale="1 1.1 1" material="color: #45704b"></a-sphere>
+        <a-sphere radius="0.43" position="0.35 1.25 0.1" material="color: #568553"></a-sphere>
+      </a-entity>
+
+      <!-- Exit door -->
+      <a-entity class="clickable" data-action="exit" data-object="exit" position="0 1.5 -8.7">
+        <a-box width="1.45" height="2.85" depth="0.12" mixin="wood"></a-box>
+        <a-box width="1.1" height="2.5" depth="0.06" position="0 0 0.08" material="color: #523527"></a-box>
+        <a-sphere radius="0.07" position="0.48 -0.03 0.18" mixin="gold"></a-sphere>
+        <a-text value="SALIDA" position="-0.48 1.65 0.12" width="1" align="center" color="#f1d29a"></a-text>
+      </a-entity>
+      <a-text value="1 · RESTAURANTE" position="-5.5 3.7 8.7" width="4" color="#f3d9a8"></a-text>
+      <a-text value="2 · SALÓN DE LAS MEMORIAS" position="-5.5 3.7 -7.7" width="5" color="#f3d9a8"></a-text>
+
+      <a-entity id="rig" position="0 0 7.3" arrow-walk>
+        <a-entity id="camera" camera position="0 1.65 0" look-controls="pointerLockEnabled: false" wasd-controls="enabled: false"></a-entity>
+      </a-entity>
+    </a-scene>
+
+    <header class="hud">
+      <div class="brand"><span class="brand-mark">✦</span><span>ARCHIVO<br><b>GASTRONÓMICO</b></span></div>
+      <div class="hud-center"><strong>EL DOCUMENTO PERDIDO</strong><span>Explora · recuerda · descifra</span></div>
+      <div class="timer" aria-live="polite"><span>TIEMPO</span><strong id="timer">12:00</strong></div>
+    </header>
+
+    <aside class="instructions">
+      <span class="key">↑</span><span class="key">↓</span><span class="key">←</span><span class="key">→</span>
+      <span>Moverse</span><span class="mouse-icon">⌖</span><span>Mirar</span><span class="hint">Haz clic en los objetos brillantes</span>
+    </aside>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <section class="panel">
+        <button id="close-modal" class="close" type="button" aria-label="Cerrar">×</button>
+        <div class="panel-kicker">EXPEDIENTE INTERACTIVO <span id="panel-count"></span></div>
+        <h1 id="modal-title"></h1>
+        <div id="modal-body" class="panel-body"></div>
+        <div id="feedback" class="feedback" aria-live="polite"></div>
+        <div class="panel-actions">
+          <button id="back-btn" class="button secondary hidden" type="button">← Anterior</button>
+          <button id="action-btn" class="button hidden" type="button"></button>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
