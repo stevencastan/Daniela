@@ -97,7 +97,8 @@ AFRAME.registerComponent("arrow-walk", {
   init() {
     this.keys = new Set();
     this.onDown = (event) => {
-      if (!document.querySelector("#modal")?.classList.contains("hidden")) return;
+      if (!document.querySelector("#modal")?.classList.contains("hidden")
+        || !document.querySelector("#resume-overlay")?.classList.contains("hidden")) return;
       if (!["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "KeyW", "KeyA", "KeyS", "KeyD"].includes(event.code)) return;
       event.preventDefault();
       this.keys.add(event.code);
@@ -109,9 +110,50 @@ AFRAME.registerComponent("arrow-walk", {
     this.forward = new THREE.Vector3();
     this.right = new THREE.Vector3();
     this.cameraEl = document.querySelector("#camera");
+    this.playerRadius = 0.32;
+    this.obstacles = [
+      { type: "box", x: -0.55, z: 0.22, halfWidth: 2.31, halfDepth: 0.47 },
+      { type: "box", x: 0, z: -4.5, halfWidth: 2.24, halfDepth: 1.24 },
+      { type: "box", x: -4.95, z: -3.55, halfWidth: 0.72, halfDepth: 0.9 },
+      { type: "box", x: -4.95, z: -6.65, halfWidth: 0.72, halfDepth: 0.9 },
+      { type: "box", x: -3.15, z: 5.55, halfWidth: 0.85, halfDepth: 0.675 },
+      { type: "box", x: 3.15, z: 5.55, halfWidth: 0.85, halfDepth: 0.675 },
+      { type: "box", x: -3.15, z: 4.27, halfWidth: 0.42, halfDepth: 0.42 },
+      { type: "box", x: -3.15, z: 6.83, halfWidth: 0.42, halfDepth: 0.42 },
+      { type: "box", x: -4.43, z: 5.55, halfWidth: 0.42, halfDepth: 0.42 },
+      { type: "box", x: -1.87, z: 5.55, halfWidth: 0.42, halfDepth: 0.42 },
+      { type: "box", x: 3.15, z: 4.27, halfWidth: 0.42, halfDepth: 0.42 },
+      { type: "box", x: 3.15, z: 6.83, halfWidth: 0.42, halfDepth: 0.42 },
+      { type: "box", x: 1.87, z: 5.55, halfWidth: 0.42, halfDepth: 0.42 },
+      { type: "box", x: 4.43, z: 5.55, halfWidth: 0.42, halfDepth: 0.42 },
+      { type: "box", x: 0, z: 8.34, halfWidth: 1.75, halfDepth: 0.54 }
+    ];
+    this.canOccupy = (x, z) => {
+      if (x < -5.35 || x > 5.35 || z < -8.25 || z > 8.25) return false;
+
+      const wallDepth = 0.15 + this.playerRadius;
+      const doorwayHalfWidth = 2.9 - this.playerRadius;
+      if (Math.abs(z) < wallDepth && Math.abs(x) > doorwayHalfWidth) return false;
+
+      return !this.obstacles.some((obstacle) => {
+        if (obstacle.type === "circle") {
+          const dx = x - obstacle.x;
+          const dz = z - obstacle.z;
+          const radius = obstacle.radius + this.playerRadius;
+          return dx * dx + dz * dz < radius * radius;
+        }
+
+        const closestX = THREE.MathUtils.clamp(x, obstacle.x - obstacle.halfWidth, obstacle.x + obstacle.halfWidth);
+        const closestZ = THREE.MathUtils.clamp(z, obstacle.z - obstacle.halfDepth, obstacle.z + obstacle.halfDepth);
+        const dx = x - closestX;
+        const dz = z - closestZ;
+        return dx * dx + dz * dz < this.playerRadius * this.playerRadius;
+      });
+    };
   },
   tick(time, delta) {
-    if (!document.querySelector("#modal")?.classList.contains("hidden")) {
+    if (!document.querySelector("#modal")?.classList.contains("hidden")
+      || !document.querySelector("#resume-overlay")?.classList.contains("hidden")) {
       this.keys.clear();
       return;
     }
@@ -131,17 +173,60 @@ AFRAME.registerComponent("arrow-walk", {
     this.direction.normalize().multiplyScalar(distance);
     const position = this.el.object3D.position;
     const nextX = THREE.MathUtils.clamp(position.x + this.direction.x, -5.35, 5.35);
+    if (this.canOccupy(nextX, position.z)) position.x = nextX;
+
     const nextZ = THREE.MathUtils.clamp(position.z + this.direction.z, -8.25, 8.25);
-    if (Math.sign(position.z) !== Math.sign(nextZ) && Math.abs(nextX) > 2.9) {
-      position.z = Math.sign(position.z) * 0.2;
-    } else {
-      position.z = nextZ;
-    }
-    position.x = nextX;
+    if (this.canOccupy(position.x, nextZ)) position.z = nextZ;
   },
   remove() {
     window.removeEventListener("keydown", this.onDown);
     window.removeEventListener("keyup", this.onUp);
+  }
+});
+
+AFRAME.registerComponent("mouse-look", {
+  schema: { sensitivity: { default: 0.0045 } },
+  init() {
+    this.previousPointer = null;
+    this.yawRotation = new THREE.Quaternion();
+    this.pitchRotation = new THREE.Quaternion();
+    this.worldUp = new THREE.Vector3(0, 1, 0);
+    this.localRight = new THREE.Vector3(1, 0, 0);
+    this.onPointerMove = (event) => {
+      if (event.pointerType === "touch") return;
+      if (!document.querySelector("#modal")?.classList.contains("hidden")) return;
+      if (!document.querySelector("#resume-overlay")?.classList.contains("hidden")) return;
+
+      const pointerLocked = document.pointerLockElement === this.el.sceneEl.canvas;
+      let deltaX;
+      let deltaY;
+      if (pointerLocked) {
+        deltaX = event.movementX;
+        deltaY = event.movementY;
+      } else {
+        const current = { x: event.clientX, y: event.clientY };
+        if (!this.previousPointer) {
+          this.previousPointer = current;
+          return;
+        }
+        deltaX = current.x - this.previousPointer.x;
+        deltaY = current.y - this.previousPointer.y;
+        this.previousPointer = current;
+      }
+
+      this.yawRotation.setFromAxisAngle(this.worldUp, -deltaX * this.data.sensitivity);
+      this.pitchRotation.setFromAxisAngle(this.localRight, -deltaY * this.data.sensitivity);
+      this.el.object3D.quaternion
+        .premultiply(this.yawRotation)
+        .multiply(this.pitchRotation);
+    };
+    this.resetPointer = () => { this.previousPointer = null; };
+    window.addEventListener("pointermove", this.onPointerMove);
+    window.addEventListener("blur", this.resetPointer);
+  },
+  remove() {
+    window.removeEventListener("pointermove", this.onPointerMove);
+    window.removeEventListener("blur", this.resetPointer);
   }
 });
 
@@ -156,9 +241,18 @@ AFRAME.registerComponent("arrow-walk", {
   const closeButton = document.querySelector("#close-modal");
   const timer = document.querySelector("#timer");
   const toast = document.querySelector("#toast");
+  const finishScreen = document.querySelector("#finish-screen");
+  const finishRoom = document.querySelector("#finish-room");
+  const mouseReticle = document.querySelector("#mouse-reticle");
+  const resumeOverlay = document.querySelector("#resume-overlay");
+  const rig = document.querySelector("#rig");
+  const hud = document.querySelector(".hud");
+  const instructions = document.querySelector(".instructions");
   const found = new Set();
   let timeLeft = 12 * 60;
   let timeExpired = false;
+  let leftActiveWindow = false;
+  let resumeInProgress = false;
   let timerInterval;
   let toastTimeout;
 
@@ -173,9 +267,11 @@ AFRAME.registerComponent("arrow-walk", {
   const scene = document.querySelector("a-scene");
   const sceneRaycaster = new THREE.Raycaster();
   const pointer = new THREE.Vector2();
+  let captureMouse = null;
 
   const videoLink = (query) => `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`;
   const setPanel = ({ heading, subtitle = "", content, count = "", action, actionText = "Comprobar respuesta", back }) => {
+    if (document.pointerLockElement === scene.canvas) document.exitPointerLock();
     title.textContent = heading;
     title.classList.toggle("hidden", !heading);
     let panelSubtitle = modal.querySelector(".panel-subtitle");
@@ -204,7 +300,30 @@ AFRAME.registerComponent("arrow-walk", {
       if (input) input.focus();
     }, 0);
   };
-  const closePanel = () => modal.classList.add("hidden");
+  const closePanel = () => {
+    modal.classList.add("hidden");
+    captureMouse?.();
+  };
+  const finishExperience = () => {
+    window.clearInterval(timerInterval);
+    modal.classList.add("hidden");
+    toast.classList.remove("visible");
+    hud.classList.add("hidden");
+    instructions.classList.add("hidden");
+
+    Array.from(scene.children).forEach((entity) => {
+      if (!entity.object3D || entity === rig || entity === finishRoom || entity.hasAttribute("light")) return;
+      entity.object3D.visible = false;
+    });
+
+    finishRoom.object3D.visible = true;
+    rig.object3D.position.set(0, 0, 0);
+    rig.object3D.rotation.set(0, 0, 0);
+    const cameraEl = document.querySelector("#camera");
+    cameraEl.object3D.rotation.set(0, 0, 0);
+    cameraEl.components["mouse-look"]?.resetPointer();
+    finishScreen.classList.remove("hidden");
+  };
   const tell = (message) => {
     toast.textContent = message;
     toast.classList.add("visible");
@@ -217,11 +336,13 @@ AFRAME.registerComponent("arrow-walk", {
     const successMessages = {
       maize: "Ahora busca un pequeño mundo acuático. ¡Allí podría esconderse tu próxima pista!",
       cuban: "¡Buen trabajo! El segundo código es 9. Ahora busca por un plato caliente que reúne diferentes ingredientes en un solo caldo. ¡Tu próxima pista te espera allí!",
-      soup: "¡Excelente trabajo! Tu aventura por la cultura gastronómica hispana continúa… ahora toma asiento para tu próxima pista."
+      soup: "¡Excelente trabajo! Tu aventura por la cultura gastronómica hispana continúa… ahora toma asiento para tu próxima pista.",
+      chair: "¡Felicidades! Cada pista te acerca más a descubrir los secretos de la mesa hispana. Ahora busca un mapa que conecte las cocinas latinas de Estados Unidos. ¡Tu próxima pista te espera allí!",
+      map: "¡Mapa reconstruido! El último código es 2. ¡Ahora busca la salida!"
     };
     feedback.textContent = successMessages[key] || `¡Excelente! ${clue.label}: ${clue.code}`;
     feedback.className = successMessages[key]
-      ? `feedback success next-clue${key === "soup" ? " soup-next-clue" : ""}`
+      ? `feedback success next-clue${key === "soup" ? " soup-next-clue" : ""}${key === "chair" ? " chair-next-clue" : ""}${key === "map" ? " map-next-clue" : ""}`
       : "feedback success";
     body.querySelectorAll("input, button.check-answer").forEach((element) => { element.disabled = true; });
     if (!body.querySelector(".code-reveal")) {
@@ -274,7 +395,7 @@ AFRAME.registerComponent("arrow-walk", {
     setPanel({
       heading: "Maíz, memoria y comunidad",
       count: "RETO 01 / 05 · VIDEO",
-      content: `<p>Mira este video y después continúa con la actividad.</p><video class="clue-video" id="maize-video" src="Image/Cómo hacer un huerto vertical Sostenibilidad.mp4" controls autoplay muted playsinline preload="metadata"></video>`,
+      content: `<p>Mira este video y después continúa con la actividad.</p><video class="clue-video" id="maize-video" src="Image/videomaiz.mp4" controls autoplay muted playsinline preload="metadata"></video>`,
       actionText: "Continuar al reto →",
       action: showMaizeChallenge
     });
@@ -373,23 +494,41 @@ AFRAME.registerComponent("arrow-walk", {
   }
 
   const poemLines = [
-    "Tierra que guarda el perfume del maíz,",
-    "Receta que cruza el mar en una maleta,",
-    "Abuela que amasa recuerdos con sus manos,",
-    "Dorada empanada, pequeña luna del horno,",
-    "Infancia que vuelve con cada mordisco,",
-    "Cocina que reúne las voces de casa,",
-    "Herencia que crece de mesa en mesa,",
-    "Olor que nos guía de vuelta al hogar,",
-    "Nombre que el tiempo no puede borrar."
+    "Todo comenzó con una receta.",
+    "Recuerdos que pasan de mano en mano.",
+    "Aprender de quienes vinieron antes.",
+    "Dar vida a una tradición.",
+    "Inspirar a la siguiente generación.",
+    "Cocinar con historia.",
+    "Innovar sin olvidar las raíces.",
+    "Oyeme bien: la cultura también se comparte.",
+    "Nunca olvides de dónde vienes." 
   ];
 
-  function showChair(revealHint = false) {
-    const poem = poemLines.map((line) => revealHint ? `<strong>${line}</strong>` : line).join("<br>");
+  function showChairVideo() {
     setPanel({
-      heading: "Nueve versos para recordar",
+      count: "RETO 04 / 05 · VIDEO",
+      content: `<p>Mira este video y después continúa con la actividad.</p><video class="clue-video" id="chair-video" src="Image/videoempanadas.mp4" controls autoplay muted playsinline preload="metadata"></video>`,
+      actionText: "Continuar al reto →",
+      action: () => showChair(false)
+    });
+    const video = body.querySelector("#chair-video");
+    video.addEventListener("ended", () => showChair(false), { once: true });
+    video.addEventListener("error", () => {
+      feedback.textContent = "No se pudo cargar el video. Comprueba que videosilla.mp4 esté en la carpeta Image.";
+    }, { once: true });
+    video.play().catch(() => {
+      feedback.textContent = "Pulsa reproducir en el video para verlo; después continúa con el reto.";
+    });
+  }
+
+  function showChair(revealHint = false) {
+    const poem = poemLines.map((line) => revealHint
+      ? `<strong>${line[0]}</strong>${line.slice(1)}`
+      : line).join("<br>");
+    setPanel({
       count: "RETO 04 / 05",
-      content: `<p>Margarita Womack escribe sobre la memoria de las empanadas. Puedes consultar una <a href="${videoLink("Margarita Womack empanadas poema")}" target="_blank" rel="noopener noreferrer">referencia audiovisual sobre Margarita Womack</a>. A continuación, un poema original para este reto: descubre la palabra secreta.</p><div class="poem">${poem}</div><p class="source">${revealHint ? "Pista: las iniciales de las nueve líneas forman la palabra." : "Pista disponible si fallas: presta atención a las líneas destacadas."}</p><div class="answer-row"><label for="tradition">Palabra secreta (sin tilde):</label><input id="tradition" type="text" aria-label="Palabra secreta" autocomplete="off"></div>`,
+      content: `<p>Encontremos cuál es el secreto de la receta de Margarita. <br> Lee el siguiente poema para encontrar la respuesta. ATENCIÓN Las respuestas están frente a ti. Pero solo quien observa el inicio encontrará el mensaje escondido.</p><div class="poem">${poem}</div><p class="source">${revealHint ? "Pista: las iniciales de las nueve líneas forman la palabra." : "Pista disponible si fallas: presta atención a las líneas destacadas."}</p><div class="answer-row"><label for="tradition">Palabra secreta (sin tilde):</label><input id="tradition" type="text" aria-label="Palabra secreta" autocomplete="off"></div>`,
       action: () => {
         if (inputValue("#tradition") === "TRADICION") success("chair");
         else showChair(true);
@@ -399,14 +538,18 @@ AFRAME.registerComponent("arrow-walk", {
   }
 
   const mapPages = [
-    `<p class="lead">Las cocinas viajan con las personas y echan raíces en nuevos lugares.</p><p>En Nueva Orleans, la herencia afrocaribeña se reconoce en el <b>mofongo</b>: plátano verde majado con ajo y chicharrón. En San Antonio, los <b>salbutes</b> yucatecos recuerdan que las rutas migratorias también conectan el sur de Texas con la península de Yucatán.</p>`,
-    `<p>En Los Ángeles, el <b>mole oaxaqueño</b> reúne chiles, especias y una larga historia de intercambio. En Washington, las <b>pupusas</b> salvadoreñas convierten el maíz en un plato que sabe a hogar y a comunidad.</p><p>Las ciudades se nombran en orden en este relato. Recupera la primera letra de cada ciudad para formar la clave.</p><p class="source">Orden: mofongo · salbutes · mole oaxaqueño · pupusas.</p>`
+    `<p>La comida latina en Estados Unidos refleja siglos de migraciones e intercambios. Cada comunidad ha llevado sus tradiciones a nuevos lugares. 
+    </p><p>En Miami, los exiliados cubanos crearon la Pequeña Habana, con restaurantes y cafeterías en la Calle Ocho. En Nueva York, los dominicanos abrieron tiendas y negocios con productos de su país, y los puertorriqueños popularizaron platos como el mofongo y los tostones.
+    </p><p> En Washington D. C., la llegada de inmigrantes centroamericanos durante los años ochenta impulsó comida como pupusas salvadoreñas y gallo pinto, típico de Nicaragua y Costa Rica. En Los Ángeles, los restaurantes oaxaqueños sirven moles regionales, y en San Francisco, la migración desde Yucatán introdujo los salbutes.
+    </p>`,
+    `<p> En Chicago, el chile con carne se incorporó a los productos industriales enlatados, y después aparecieron nuevas versiones regionales en distintas partes del país. Así, la comida latina conecta comunidades y lugares, y demuestra cómo la migración transforma la cultura gastronómica de Estados Unidos. (Adapted from Pilcher, 2013) 
+    </p>`
   ];
 
   function showMap(page = 0) {
     if (page < mapPages.length) {
       setPanel({
-        heading: "Un mapa de cocinas latinas",
+        heading: "El mapa de las conexiones: las cocinas latinas de Estados Unidos ",
         count: `LECTURA ${page + 1} / 2`,
         content: `<div class="page-copy">${mapPages[page]}</div>`,
         actionText: page === 0 ? "Continuar →" : "Completar la clave →",
@@ -420,10 +563,20 @@ AFRAME.registerComponent("arrow-walk", {
 
   function showMapQuiz() {
     setPanel({
-      heading: "Conexiones entre ciudades",
+      heading: "",
       count: "RETO 05 / 05",
-      content: `<p>Escribe la primera letra de las cuatro ciudades del relato, en el mismo orden que los platos:</p><p class="lead">Mofongo · Salbutes · Mole oaxaqueño · Pupusas</p><div class="answer-row"><label for="map-code">Clave de cuatro letras:</label><input type="text" id="map-code" aria-label="Clave del mapa" maxlength="4" autocomplete="off"></div>`,
-      action: () => check("map", () => inputValue("#map-code") === "NSLW", "Pista: Nueva Orleans, San Antonio, Los Ángeles, Washington.")
+      content: `<p>Lee cada alimento y descubre en qué ciudad se menciona en el texto. Escribe la inicial de cada ciudad junto al alimento correspondiente:</p><div class="map-answer-list">
+        <label for="map-mofongo"><span>Mofongo</span><input type="text" id="map-mofongo" aria-label="Inicial de la ciudad del mofongo" maxlength="1" autocomplete="off"></label>
+        <label for="map-salbutes"><span>Salbutes</span><input type="text" id="map-salbutes" aria-label="Inicial de la ciudad de los salbutes" maxlength="1" autocomplete="off"></label>
+        <label for="map-mole"><span>Mole oaxaqueño</span><input type="text" id="map-mole" aria-label="Inicial de la ciudad del mole oaxaqueño" maxlength="1" autocomplete="off"></label>
+        <label for="map-pupusas"><span>Pupusas</span><input type="text" id="map-pupusas" aria-label="Inicial de la ciudad de las pupusas" maxlength="1" autocomplete="off"></label>
+      </div>`,
+      action: () => check("map", () =>
+        inputValue("#map-mofongo") === "N" &&
+        inputValue("#map-salbutes") === "S" &&
+        inputValue("#map-mole") === "L" &&
+        inputValue("#map-pupusas") === "W",
+      "Pista: Nueva York, San Francisco, Los Ángeles, Washington D.C.")
     });
   }
 
@@ -431,18 +584,18 @@ AFRAME.registerComponent("arrow-walk", {
     setPanel({
       heading: "La puerta del archivo",
       count: "CÓDIGO FINAL",
-      content: `<p>Has reconstruido las cinco cifras. Introdúcelas en el orden en que aparecieron.</p><p class="lead">Primer código · Segundo · Tercero · Cuarto · Último</p><div class="answer-row"><label for="final-code">Secuencia:</label><input type="text" id="final-code" aria-label="Código de salida" inputmode="numeric" maxlength="5" autocomplete="off" placeholder="•••••"></div>`,
+      content: `<p>Es hora de poner todos los códigos juntos y descubrir si has recuperado el archivo. Pon los en el orden que los descubriste. ¡Mucha suerte! </p><div class="answer-row"><label for="final-code">Secuencia:</label><input type="text" id="final-code" aria-label="Código de salida" inputmode="numeric" maxlength="5" autocomplete="off" placeholder="•••••"></div>`,
       action: () => {
         if (inputValue("#final-code") === "79072") {
           setPanel({
             heading: "¡Misión cumplida!",
             count: "ARCHIVO RECUPERADO",
-            content: `<p class="lead">¡Misión cumplida! Has recuperado el documento del Archivo de la Memoria Gastronómica...</p><p>Las historias de las comunidades hispanas siguen vivas: en cada receta, cada viaje y cada mesa compartida.</p><div class="code-reveal">DOCUMENTO HISTÓRICO<br><strong>RECUPERADO</strong></div>`,
-            actionText: "Volver al restaurante",
-            action: closePanel
+            content: `<p class="lead">Has recuperado el documento del Archivo de la Memoria Gastronómica. Las pistas revelan que la comida es mucho más que una receta: conserva recuerdos familiares, refleja la migración y muestra cómo las comunidades transforman y comparten sus tradiciones. La historia gastronómica hispana en Estados Unidos no pertenece a una sola cultura ni a un único lugar. Es una historia diversa, viva y en constante evolución. </p><div class="code-reveal">DOCUMENTO HISTÓRICO<br><strong>RECUPERADO</strong></div>`,
+            actionText: "Finalizar",
+            action: finishExperience
           });
         } else {
-          feedback.textContent = "Código incorrecto. Revisa las cinco cifras en el orden obtenido.";
+          feedback.textContent = "La respuesta correcta es 79072, intenta de nuevo.";
         }
       }
     });
@@ -453,7 +606,7 @@ AFRAME.registerComponent("arrow-walk", {
     maize: showMaize,
     cuban: () => showCuban(0),
     soup: showSoup,
-    chair: () => showChair(false),
+    chair: showChairVideo,
     map: () => showMap(0),
     exit: showExit
   };
@@ -461,30 +614,133 @@ AFRAME.registerComponent("arrow-walk", {
   function enableSceneClicks() {
     const canvas = scene.canvas;
     if (!canvas) return;
-    const clickableObjects = Array.from(scene.querySelectorAll(".clickable"));
-    const intersectionsAt = (event) => {
+    if (!canvas.hasAttribute("tabindex")) canvas.setAttribute("tabindex", "0");
+    let resumeGuardTimeout;
+    const releaseResumeGuard = () => {
+      window.clearTimeout(resumeGuardTimeout);
+      resumeGuardTimeout = window.setTimeout(() => { resumeInProgress = false; }, 1000);
+    };
+    const requestMouseCapture = () => {
+      if (document.pointerLockElement === canvas) {
+        resumeInProgress = false;
+        return;
+      }
+      if (typeof canvas.requestPointerLock !== "function") {
+        resumeInProgress = false;
+        tell("Este navegador no permite capturar el mouse para girar sin límites.");
+        return;
+      }
+      try {
+        const request = canvas.requestPointerLock();
+        if (request && typeof request.then === "function") {
+          request.then(() => {
+            leftActiveWindow = false;
+            releaseResumeGuard();
+          }).catch(() => {
+            resumeInProgress = false;
+            tell("No se pudo capturar el mouse. Haz clic dentro del restaurante para intentarlo de nuevo.");
+          });
+        } else {
+          releaseResumeGuard();
+        }
+      } catch {
+        resumeInProgress = false;
+        tell("No se pudo capturar el mouse. Haz clic dentro del restaurante para intentarlo de nuevo.");
+      }
+    };
+    captureMouse = requestMouseCapture;
+    const resumeExperience = () => {
+      if (resumeOverlay.classList.contains("hidden")) return;
+      leftActiveWindow = false;
+      resumeInProgress = true;
+      resumeOverlay.classList.add("hidden");
+      resumeOverlay.setAttribute("aria-hidden", "true");
+      document.querySelector("#camera")?.components["mouse-look"]?.resetPointer();
+      if (!modal.classList.contains("hidden")) {
+        resumeInProgress = false;
+        const panelTarget = body.querySelector("input:not(:disabled)")
+          || (!actionButton.classList.contains("hidden") ? actionButton : closeButton);
+        panelTarget.focus({ preventScroll: true });
+        return;
+      }
+      canvas.focus({ preventScroll: true });
+      requestMouseCapture();
+    };
+    const targetAt = (event) => {
       const bounds = canvas.getBoundingClientRect();
-      pointer.x = ((event.clientX - bounds.left) / bounds.width) * 2 - 1;
-      pointer.y = -((event.clientY - bounds.top) / bounds.height) * 2 + 1;
+      if (document.pointerLockElement === canvas) {
+        pointer.set(0, 0);
+      } else {
+        pointer.x = ((event.clientX - bounds.left) / bounds.width) * 2 - 1;
+        pointer.y = -((event.clientY - bounds.top) / bounds.height) * 2 + 1;
+      }
       scene.object3D.updateMatrixWorld(true);
       sceneRaycaster.setFromCamera(pointer, scene.camera);
-      return sceneRaycaster.intersectObjects(clickableObjects.map((object) => object.object3D), true);
+      const nearestHit = sceneRaycaster.intersectObject(scene.object3D, true)[0];
+      return nearestHit?.object.el?.closest(".clickable") || null;
     };
 
     canvas.addEventListener("pointermove", (event) => {
-      const target = intersectionsAt(event)
-        .map((intersection) => intersection.object.el?.closest(".clickable"))
-        .find(Boolean);
+      const target = targetAt(event);
       canvas.style.cursor = target ? "pointer" : "crosshair";
     });
     canvas.addEventListener("click", (event) => {
-      if (!modal.classList.contains("hidden")) return;
-      const hit = intersectionsAt(event).find((intersection) => intersection.object.el?.closest(".clickable"));
-      const target = hit?.object.el?.closest(".clickable");
+      if (!modal.classList.contains("hidden") || !resumeOverlay.classList.contains("hidden")) return;
+      const target = targetAt(event);
       const actionName = target?.dataset.action;
       const action = actionName && actions[actionName];
-      if (action) action();
+      if (action) {
+        action();
+        return;
+      }
+      requestMouseCapture();
     });
+    document.addEventListener("pointerlockchange", () => {
+      document.querySelector("#camera")?.components["mouse-look"]?.resetPointer();
+      const isLocked = document.pointerLockElement === canvas;
+      canvas.style.cursor = isLocked ? "none" : "crosshair";
+      mouseReticle.classList.toggle("hidden", !isLocked);
+      if (isLocked) {
+        leftActiveWindow = false;
+        releaseResumeGuard();
+        tell("Mouse capturado: ahora puedes girar sin límite, incluso en los bordes.");
+      }
+    });
+    document.addEventListener("pointerlockerror", () => {
+      resumeInProgress = false;
+      tell("El navegador liberó el mouse. Haz clic en un espacio vacío del restaurante para reactivar el giro sin límites.");
+    });
+    const pauseOnLeave = () => {
+      if (resumeInProgress) return;
+      leftActiveWindow = true;
+      document.querySelector("#rig")?.components["arrow-walk"]?.keys.clear();
+      document.querySelector("#camera")?.components["mouse-look"]?.resetPointer();
+      if (document.pointerLockElement === canvas) document.exitPointerLock();
+    };
+    const resumeOnReturn = () => {
+      if (!leftActiveWindow || !finishScreen.classList.contains("hidden")) return;
+      document.querySelector("#camera")?.components["mouse-look"]?.resetPointer();
+      const isLocked = document.pointerLockElement === canvas;
+      canvas.style.cursor = isLocked ? "none" : "crosshair";
+      mouseReticle.classList.toggle("hidden", !isLocked);
+      leftActiveWindow = false;
+      resumeOverlay.classList.remove("hidden");
+      resumeOverlay.setAttribute("aria-hidden", "false");
+      document.querySelector("#rig")?.components["arrow-walk"]?.keys.clear();
+    };
+    window.addEventListener("blur", pauseOnLeave);
+    window.addEventListener("focus", resumeOnReturn);
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "hidden") pauseOnLeave();
+      else resumeOnReturn();
+    });
+    resumeOverlay.addEventListener("click", resumeExperience);
+    resumeOverlay.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      resumeExperience();
+    });
+    resumeOverlay.setAttribute("aria-hidden", "true");
   }
 
   if (scene.hasLoaded) enableSceneClicks();

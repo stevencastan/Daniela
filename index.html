@@ -7,7 +7,7 @@
   <title>El archivo de la memoria gastronómica</title>
   <link rel="stylesheet" href="styles.css">
   <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
-  <script defer src="game.js"></script>
+  <script defer src="game.js?v=20261109-product-display-stands-v1"></script>
 </head>
 <body>
   <main id="game">
@@ -19,74 +19,238 @@
       shadow="type: pcfsoft">
       <a-assets>
         <img id="fish-tank-image" src="Image/pecera.jpg" alt="">
+        <img id="world-map-image" src="Image/mapamundi.jpg" alt="">
+        <img id="rice-pudding-image" src="Image/arrozconleche.png" alt="">
+        <img id="arepas-image" src="Image/arepas.png" alt="">
+        <img id="ceviche-image" src="Image/ceviche.png" alt="">
+        <img id="chiles-image" src="Image/chiles.png" alt="">
+        <img id="chimichurri-image" src="Image/chimichurri.png" alt="">
+        <img id="empanadas-image" src="Image/empanadas.png" alt="">
+        <img id="flan-image" src="Image/flan.png" alt="">
+        <img id="gallopinto-image" src="Image/gallopinto.png" alt="">
+        <img id="mofongo-image" src="Image/mofongo.png" alt="">
+        <img id="mole-image" src="Image/mole.png" alt="">
+        <img id="sancocho-image" src="Image/sancocho.png" alt="">
+        <img id="tamales-image" src="Image/tamales.png" alt="">
         <a-mixin id="wood" material="color: #754729; roughness: 0.78"></a-mixin>
-        <a-mixin id="cream" material="color: #e8d8b8; roughness: 0.9"></a-mixin>
+        <a-mixin id="cream" material="color: #789681; roughness: 0.9"></a-mixin>
         <a-mixin id="gold" material="color: #d7a74f; metalness: 0.15; roughness: 0.38"></a-mixin>
       </a-assets>
 
-      <a-entity light="type: ambient; color: #fff0d3; intensity: 1.25"></a-entity>
-      <a-entity light="type: directional; color: #ffe0aa; intensity: 2.2; castShadow: true" position="-3 7 4"></a-entity>
-      <a-entity light="type: point; color: #ffbd69; intensity: 1.2; distance: 12" position="0 3 0"></a-entity>
+      <a-entity light="type: ambient; color: #f3f5ef; intensity: 0.9"></a-entity>
+      <a-entity light="type: directional; color: #fff0dc; intensity: 1.35; castShadow: true" position="-3 7 4"></a-entity>
+      <a-entity light="type: point; color: #ffd39a; intensity: 0.4; distance: 12" position="0 3 0"></a-entity>
       <a-entity light="type: point; color: #75b8bd; intensity: 0.8; distance: 8" position="-4 2 -7"></a-entity>
 
+      <a-entity id="finish-room" visible="false">
+        <a-box position="0 -0.15 0" width="12" height="0.3" depth="18" material="color: #e8d7b8; roughness: 0.92"></a-box>
+        <a-box position="0 4.1 0" width="12" height="0.3" depth="18" material="color: #eaf3e9; roughness: 0.94"></a-box>
+        <a-box position="-6 2 0" width="0.3" height="4" depth="18" material="color: #f3ead8; roughness: 0.92"></a-box>
+        <a-box position="6 2 0" width="0.3" height="4" depth="18" material="color: #f3ead8; roughness: 0.92"></a-box>
+        <a-box position="0 2 -9" width="12" height="4" depth="0.3" material="color: #dceee4; roughness: 0.92"></a-box>
+        <a-box position="0 2 9" width="12" height="4" depth="0.3" material="color: #f3ead8; roughness: 0.92"></a-box>
+      </a-entity>
+
       <!-- Two connected restaurant rooms -->
-      <a-box position="0 -0.15 0" width="12" height="0.3" depth="18" material="color: #805637; roughness: 0.8"></a-box>
-      <a-box position="0 4.1 0" width="12" height="0.3" depth="18" material="color: #3a3027"></a-box>
+      <a-box position="0 -0.15 0" width="12" height="0.3" depth="18" material="color: #9a7553; roughness: 0.76"></a-box>
+      <a-box position="0 4.1 0" width="12" height="0.3" depth="18" material="color: #e6d9c2; roughness: 0.88"></a-box>
+      <!-- Dining-room oak boards -->
+      <a-box position="-5.25 0.012 4.5" width="1.48" height="0.018" depth="8.96" material="color: #ad845c; roughness: 0.72"></a-box>
+      <a-box position="-3.75 0.012 4.5" width="1.48" height="0.018" depth="8.96" material="color: #a77c54; roughness: 0.74"></a-box>
+      <a-box position="-2.25 0.012 4.5" width="1.48" height="0.018" depth="8.96" material="color: #b1875d; roughness: 0.72"></a-box>
+      <a-box position="-0.75 0.012 4.5" width="1.48" height="0.018" depth="8.96" material="color: #a77c54; roughness: 0.74"></a-box>
+      <a-box position="0.75 0.012 4.5" width="1.48" height="0.018" depth="8.96" material="color: #ad845c; roughness: 0.72"></a-box>
+      <a-box position="2.25 0.012 4.5" width="1.48" height="0.018" depth="8.96" material="color: #a77c54; roughness: 0.74"></a-box>
+      <a-box position="3.75 0.012 4.5" width="1.48" height="0.018" depth="8.96" material="color: #b1875d; roughness: 0.72"></a-box>
+      <a-box position="5.25 0.012 4.5" width="1.48" height="0.018" depth="8.96" material="color: #a77c54; roughness: 0.74"></a-box>
+      <a-box position="0 0.023 1.9" width="11.98" height="0.004" depth="0.014" material="color: #76563c"></a-box>
+      <a-box position="0 0.023 4.1" width="11.98" height="0.004" depth="0.014" material="color: #76563c"></a-box>
+      <a-box position="0 0.023 6.3" width="11.98" height="0.004" depth="0.014" material="color: #76563c"></a-box>
+      <!-- Warm timber ceiling coffers -->
+      <a-box position="-4 3.88 0" width="0.12" height="0.1" depth="17.7" material="color: #795b3e; roughness: 0.72"></a-box>
+      <a-box position="0 3.88 0" width="0.12" height="0.1" depth="17.7" material="color: #795b3e; roughness: 0.72"></a-box>
+      <a-box position="4 3.88 0" width="0.12" height="0.1" depth="17.7" material="color: #795b3e; roughness: 0.72"></a-box>
+      <a-box position="0 3.88 -7" width="11.8" height="0.1" depth="0.12" material="color: #795b3e; roughness: 0.72"></a-box>
+      <a-box position="0 3.88 -3.5" width="11.8" height="0.1" depth="0.12" material="color: #795b3e; roughness: 0.72"></a-box>
+      <a-box position="0 3.88 0" width="11.8" height="0.1" depth="0.12" material="color: #795b3e; roughness: 0.72"></a-box>
+      <a-box position="0 3.88 3.5" width="11.8" height="0.1" depth="0.12" material="color: #795b3e; roughness: 0.72"></a-box>
+      <a-box position="0 3.88 7" width="11.8" height="0.1" depth="0.12" material="color: #795b3e; roughness: 0.72"></a-box>
       <a-box position="-6 2 0" width="0.3" height="4" depth="18" mixin="cream"></a-box>
       <a-box position="6 2 0" width="0.3" height="4" depth="18" mixin="cream"></a-box>
       <a-box position="-4.45 2 0" width="3.1" height="4" depth="0.3" mixin="cream"></a-box>
       <a-box position="4.45 2 0" width="3.1" height="4" depth="0.3" mixin="cream"></a-box>
       <a-box position="0 3.65 0" width="5.8" height="0.7" depth="0.3" mixin="cream"></a-box>
       <a-box position="0 2 9" width="12" height="4" depth="0.3" mixin="cream"></a-box>
-      <a-box position="-4.45 2 -9" width="3.1" height="4" depth="0.3" mixin="cream"></a-box>
-      <a-box position="4.45 2 -9" width="3.1" height="4" depth="0.3" mixin="cream"></a-box>
-      <a-box position="0 3.55 -9" width="5.8" height="0.9" depth="0.3" mixin="cream"></a-box>
-      <a-box position="0 1.45 -9" width="5.8" height="2.9" depth="0.22" material="color: #423322"></a-box>
-      <a-box position="0 1.45 -8.86" width="5.4" height="2.6" material="color: #695035"></a-box>
-      <a-text value="SALÓN DE LAS MEMORIAS" position="-2.25 3.35 -8.65" width="5" color="#f0d498" align="center"></a-text>
-
-      <!-- Restaurant kitchen: tiled floor, prep counters, stove, fryer and produce baskets -->
-      <a-box position="0 0.015 -4.5" width="11.7" height="0.035" depth="8.9" material="color: #555953; roughness: 0.8"></a-box>
-      <a-box position="0 0.04 -4.5" width="0.035" height="0.025" depth="8.9" material="color: #aaa394"></a-box>
-      <a-box position="-3 0.04 -4.5" width="0.035" height="0.025" depth="8.9" material="color: #aaa394"></a-box>
-      <a-box position="3 0.04 -4.5" width="0.035" height="0.025" depth="8.9" material="color: #aaa394"></a-box>
-      <a-box position="0 0.04 -2.25" width="11.7" height="0.025" depth="0.035" material="color: #aaa394"></a-box>
-      <a-box position="0 0.04 -4.5" width="11.7" height="0.025" depth="0.035" material="color: #aaa394"></a-box>
-      <a-box position="0 0.04 -6.75" width="11.7" height="0.025" depth="0.035" material="color: #aaa394"></a-box>
-      <a-text value="COCINA" position="2.5 3.45 -8.62" width="3" color="#f0d498" align="center"></a-text>
-
-      <!-- Produce display: hand-woven baskets and vegetables -->
-      <a-entity position="-4.45 0 -3.3">
-        <a-cylinder radius="0.67" height="0.48" position="0 0.25 0" material="color: #a76d36; roughness: 0.92"></a-cylinder>
-        <a-cylinder radius="0.62" height="0.12" position="0 0.49 0" material="color: #c28a4b"></a-cylinder>
-        <a-torus radius="0.62" radius-tubular="0.055" position="0 0.53 0" material="color: #d3a465"></a-torus>
-        <a-sphere radius="0.22" position="-0.28 0.75 0.05" material="color: #b94a36"></a-sphere>
-        <a-sphere radius="0.23" position="0.12 0.78 -0.15" material="color: #cf5038"></a-sphere>
-        <a-sphere radius="0.2" position="0.33 0.72 0.2" material="color: #e2a947"></a-sphere>
-        <a-sphere radius="0.21" position="-0.03 0.91 0.2" material="color: #6f934d"></a-sphere>
-        <a-cone radius-bottom="0.12" radius-top="0.015" height="0.48" position="-0.31 0.82 -0.22" rotation="0 0 -18" material="color: #e27e35"></a-cone>
-        <a-cone radius-bottom="0.12" radius-top="0.015" height="0.44" position="0.23 0.86 0.08" rotation="0 0 16" material="color: #e9893c"></a-cone>
-        <a-text value="CANASTA DE VERDURAS" position="-0.85 1.25 0" width="1.8" align="center" color="#fff1d2"></a-text>
+      <a-box position="-3.37 2 -9" width="5.26" height="4" depth="0.3" material="color: #b56e56; roughness: 0.92"></a-box>
+      <a-box position="3.37 2 -9" width="5.26" height="4" depth="0.3" material="color: #b56e56; roughness: 0.92"></a-box>
+      <a-box position="0 3.55 -9" width="3.8" height="0.9" depth="0.3" material="color: #b56e56; roughness: 0.92"></a-box>
+      <!-- Framed food gallery distributed around all three dining-room walls. -->
+      <a-entity position="-3.9 2.25 8.78" rotation="0 180 0">
+        <a-box width="1.48" height="1.72" depth="0.09" mixin="gold"></a-box>
+        <a-box width="1.32" height="1.56" depth="0.02" position="0 0 0.05" material="color: #687543"></a-box>
+        <a-plane width="1.0616" height="1.35" position="0 0 0.07" material="src: #arepas-image; shader: flat; roughness: 0.72"></a-plane>
       </a-entity>
-      <a-entity position="-4.45 0 -5.55">
-        <a-cylinder radius="0.64" height="0.45" position="0 0.23 0" material="color: #8d5c34"></a-cylinder>
-        <a-cylinder radius="0.59" height="0.1" position="0 0.46 0" material="color: #c28a4b"></a-cylinder>
-        <a-torus radius="0.6" radius-tubular="0.05" position="0 0.5 0" material="color: #d3a465"></a-torus>
-        <a-sphere radius="0.2" position="-0.24 0.68 0.03" material="color: #e4b83f"></a-sphere>
-        <a-sphere radius="0.2" position="0.12 0.72 -0.08" material="color: #e4b83f"></a-sphere>
-        <a-sphere radius="0.19" position="0.29 0.67 0.16" material="color: #77a354"></a-sphere>
-        <a-sphere radius="0.18" position="-0.08 0.88 0.17" material="color: #79a958"></a-sphere>
-        <a-text value="MAÍZ Y CALABAZA" position="-0.8 1.2 0" width="1.7" align="center" color="#fff1d2"></a-text>
+      <a-entity position="3.9 2.25 8.78" rotation="0 180 0">
+        <a-box width="1.48" height="1.72" depth="0.09" mixin="gold"></a-box>
+        <a-box width="1.32" height="1.56" depth="0.02" position="0 0 0.05" material="color: #994e39"></a-box>
+        <a-plane width="1.0307" height="1.35" position="0 0 0.07" material="src: #empanadas-image; shader: flat; roughness: 0.72"></a-plane>
       </a-entity>
 
-      <!-- Stainless prep counter and sink -->
-      <a-box position="-4.9 0.48 -7.55" width="1.45" height="0.92" depth="2.35" material="color: #707873; metalness: 0.58; roughness: 0.42"></a-box>
-      <a-box position="-4.9 0.98 -7.55" width="1.65" height="0.12" depth="2.55" material="color: #aab0a9; metalness: 0.7; roughness: 0.28"></a-box>
-      <a-box position="-4.9 1.055 -7.55" width="0.76" height="0.035" depth="1.05" material="color: #374c4a; metalness: 0.35; roughness: 0.24"></a-box>
-      <a-torus radius="0.19" radius-tubular="0.035" position="-4.9 1.11 -7.55" rotation="90 0 0" material="color: #c4c9c1; metalness: 0.8"></a-torus>
-      <a-cylinder radius="0.035" height="0.4" position="-4.9 1.3 -7.05" material="color: #bfc7c1; metalness: 0.8"></a-cylinder>
-      <a-torus radius="0.16" radius-tubular="0.025" position="-4.9 1.48 -7.05" rotation="90 0 0" material="color: #bfc7c1; metalness: 0.8"></a-torus>
-      <a-text value="ÁREA DE PREPARACIÓN" position="-5.7 2.25 -8.5" width="2.2" align="center" color="#f0d498"></a-text>
+      <a-entity position="-5.78 2.45 7.1" rotation="0 90 0">
+        <a-box width="1.48" height="1.72" depth="0.09" mixin="gold"></a-box>
+        <a-box width="1.32" height="1.56" depth="0.02" position="0 0 0.05" material="color: #9a4f35"></a-box>
+        <a-plane width="1.0525" height="1.35" position="0 0 0.07" material="src: #chiles-image; shader: flat; roughness: 0.72"></a-plane>
+      </a-entity>
+      <a-entity position="-5.78 2.45 4.75" rotation="0 90 0">
+        <a-box width="1.48" height="1.72" depth="0.09" mixin="gold"></a-box>
+        <a-box width="1.32" height="1.56" depth="0.02" position="0 0 0.05" material="color: #61744e"></a-box>
+        <a-plane width="1.0865" height="1.35" position="0 0 0.07" material="src: #chimichurri-image; shader: flat; roughness: 0.72"></a-plane>
+      </a-entity>
+      <a-entity position="-5.78 2.2 -1.15" rotation="0 90 0">
+        <a-box width="1.48" height="1.72" depth="0.09" mixin="gold"></a-box>
+        <a-box width="1.32" height="1.56" depth="0.02" position="0 0 0.05" material="color: #a57842"></a-box>
+        <a-plane width="1.0583" height="1.35" position="0 0 0.07" material="src: #flan-image; shader: flat; roughness: 0.72"></a-plane>
+      </a-entity>
+      <a-entity position="-5.78 2.45 -5.1" rotation="0 90 0">
+        <a-box width="1.48" height="1.72" depth="0.09" mixin="gold"></a-box>
+        <a-box width="1.32" height="1.56" depth="0.02" position="0 0 0.05" material="color: #708451"></a-box>
+        <a-plane width="1.0383" height="1.35" position="0 0 0.07" material="src: #tamales-image; shader: flat; roughness: 0.72"></a-plane>
+      </a-entity>
+
+      <a-entity position="5.78 2.45 6.8" rotation="0 -90 0">
+        <a-box width="1.48" height="1.72" depth="0.09" mixin="gold"></a-box>
+        <a-box width="1.32" height="1.56" depth="0.02" position="0 0 0.05" material="color: #756444"></a-box>
+        <a-plane width="1.0743" height="1.35" position="0 0 0.07" material="src: #gallopinto-image; shader: flat; roughness: 0.72"></a-plane>
+      </a-entity>
+      <a-entity position="5.78 2.45 4.55" rotation="0 -90 0">
+        <a-box width="1.48" height="1.72" depth="0.09" mixin="gold"></a-box>
+        <a-box width="1.32" height="1.56" depth="0.02" position="0 0 0.05" material="color: #a96940"></a-box>
+        <a-plane width="1.0448" height="1.35" position="0 0 0.07" material="src: #mofongo-image; shader: flat; roughness: 0.72"></a-plane>
+      </a-entity>
+      <a-entity position="5.78 2.45 -0.9" rotation="0 -90 0">
+        <a-box width="1.48" height="1.72" depth="0.09" mixin="gold"></a-box>
+        <a-box width="1.32" height="1.56" depth="0.02" position="0 0 0.05" material="color: #765348"></a-box>
+        <a-plane width="1.0473" height="1.35" position="0 0 0.07" material="src: #mole-image; shader: flat; roughness: 0.72"></a-plane>
+      </a-entity>
+      <a-entity position="5.78 2.45 -2.6" rotation="0 -90 0">
+        <a-box width="1.48" height="1.72" depth="0.09" mixin="gold"></a-box>
+        <a-box width="1.32" height="1.56" depth="0.02" position="0 0 0.05" material="color: #9b5539"></a-box>
+        <a-plane width="1.2133" height="1.35" position="0 0 0.07" material="src: #sancocho-image; shader: flat; roughness: 0.72"></a-plane>
+      </a-entity>
+
+      <!-- Restaurant kitchen: tiled floor, prep counters, stove, fryer and product stands -->
+      <a-box position="0 0.015 -4.5" width="11.7" height="0.035" depth="8.9" material="color: #938b7b; roughness: 0.82"></a-box>
+      <a-box position="0 0.04 -4.5" width="0.035" height="0.025" depth="8.9" material="color: #c9c0ad"></a-box>
+      <a-box position="-4.5 0.04 -4.5" width="0.035" height="0.025" depth="8.9" material="color: #c9c0ad"></a-box>
+      <a-box position="-3 0.04 -4.5" width="0.035" height="0.025" depth="8.9" material="color: #c9c0ad"></a-box>
+      <a-box position="-1.5 0.04 -4.5" width="0.035" height="0.025" depth="8.9" material="color: #c9c0ad"></a-box>
+      <a-box position="1.5 0.04 -4.5" width="0.035" height="0.025" depth="8.9" material="color: #c9c0ad"></a-box>
+      <a-box position="3 0.04 -4.5" width="0.035" height="0.025" depth="8.9" material="color: #c9c0ad"></a-box>
+      <a-box position="4.5 0.04 -4.5" width="0.035" height="0.025" depth="8.9" material="color: #c9c0ad"></a-box>
+      <a-box position="0 0.04 -2.25" width="11.7" height="0.025" depth="0.035" material="color: #c9c0ad"></a-box>
+      <a-box position="0 0.04 -4.5" width="11.7" height="0.025" depth="0.035" material="color: #c9c0ad"></a-box>
+      <a-box position="0 0.04 -6.75" width="11.7" height="0.025" depth="0.035" material="color: #c9c0ad"></a-box>
+
+      <!-- Service bar dividing the dining room from the kitchen -->
+      <a-box position="-0.55 0.49 0.22" width="4.4" height="0.98" depth="0.78" material="color: #3e4a43; roughness: 0.7"></a-box>
+      <a-box position="-0.55 0.57 0.625" width="4.22" height="0.66" depth="0.035" material="color: #715039; roughness: 0.7"></a-box>
+      <a-box position="-0.55 1.04 0.22" width="4.62" height="0.14" depth="0.94" material="color: #b7c0bb; metalness: 0.7; roughness: 0.28"></a-box>
+      <a-box position="-0.55 2.43 -0.24" width="4.52" height="1.48" depth="0.16" material="color: #35433b; roughness: 0.76"></a-box>
+
+      <a-entity position="-2.22 1.11 0.14">
+        <a-box width="0.58" height="0.09" depth="0.4" position="0 0.05 0" material="color: #252b2a; metalness: 0.42; roughness: 0.38"></a-box>
+        <a-box width="0.52" height="0.035" depth="0.34" position="0 0.105 0" material="color: #424a46; metalness: 0.3; roughness: 0.4"></a-box>
+        <a-box width="0.07" height="0.22" depth="0.08" position="0 0.23 -0.055" rotation="-8 0 0" material="color: #434b47; metalness: 0.4; roughness: 0.35"></a-box>
+        <a-entity position="0 0.43 0" rotation="-8 0 0">
+          <a-box width="0.62" height="0.42" depth="0.085" material="color: #202725; metalness: 0.48; roughness: 0.3"></a-box>
+          <a-box width="0.54" height="0.34" depth="0.012" position="0 0 0.049" material="color: #102b2b; roughness: 0.3"></a-box>
+          <a-box width="0.46" height="0.045" depth="0.008" position="0 0.115 0.06" material="color: #58a995; emissive: #163d35; shader: flat"></a-box>
+          <a-box width="0.16" height="0.13" depth="0.008" position="-0.13 -0.035 0.06" material="color: #456b5c; shader: flat"></a-box>
+          <a-box width="0.16" height="0.13" depth="0.008" position="0.13 -0.035 0.06" material="color: #456b5c; shader: flat"></a-box>
+          <a-box width="0.37" height="0.025" depth="0.008" position="0 -0.13 0.06" material="color: #d7ddcb; shader: flat"></a-box>
+        </a-entity>
+        <a-box width="0.22" height="0.035" depth="0.15" position="0.18 0.14 0.12" rotation="-12 0 0" material="color: #707873; metalness: 0.55; roughness: 0.3"></a-box>
+        <a-box width="0.18" height="0.012" depth="0.1" position="0.18 0.164 0.12" rotation="-12 0 0" material="color: #242927"></a-box>
+        <a-cylinder radius="0.012" height="0.012" position="0.13 0.174 0.12" material="color: #75b8bd"></a-cylinder>
+        <a-cylinder radius="0.012" height="0.012" position="0.17 0.174 0.12" material="color: #75b8bd"></a-cylinder>
+        <a-cylinder radius="0.012" height="0.012" position="0.21 0.174 0.12" material="color: #75b8bd"></a-cylinder>
+        <a-box width="0.13" height="0.12" depth="0.12" position="-0.21 0.15 0.13" material="color: #f0e9d8; roughness: 0.75"></a-box>
+        <a-box width="0.09" height="0.012" depth="0.01" position="-0.21 0.205 0.196" material="color: #c5c8bb"></a-box>
+      </a-entity>
+      <a-cylinder radius="0.12" height="0.26" position="0.9 1.24 0.1" material="color: #9cddd0; opacity: 0.52; transparent: true; roughness: 0.12"></a-cylinder>
+      <a-torus radius="0.12" radius-tubular="0.014" position="0.9 1.38 0.1" material="color: #d3e8dc; roughness: 0.2"></a-torus>
+      <a-cylinder radius="0.018" height="0.012" position="0.86 1.28 0.1" material="color: #d5aa52; metalness: 0.5"></a-cylinder>
+      <a-cylinder radius="0.016" height="0.012" position="0.93 1.3 0.1" material="color: #e2c47a; metalness: 0.45"></a-cylinder>
+
+      <!-- Wall-mounted food screens, each preserving its image proportions -->
+      <a-entity position="-1.85 2.43 -0.12">
+        <a-box width="1.3" height="1.1" depth="0.12" material="color: #151a19; metalness: 0.28; roughness: 0.32"></a-box>
+        <a-plane width="0.71" height="0.9" position="-0.23 0 0.066" material="src: #arepas-image; shader: flat; roughness: 0.72"></a-plane>
+        <a-sphere radius="0.025" position="-0.57 -0.48 0.075" material="color: #73c9a1; emissive: #1c4932"></a-sphere>
+      </a-entity>
+      <a-entity position="-0.55 2.43 -0.12">
+        <a-box width="1.3" height="1.1" depth="0.12" material="color: #151a19; metalness: 0.28; roughness: 0.32"></a-box>
+        <a-plane width="0.71" height="0.9" position="-0.23 0 0.066" material="src: #tamales-image; shader: flat; roughness: 0.72"></a-plane>
+        <a-sphere radius="0.025" position="-0.57 -0.48 0.075" material="color: #73c9a1; emissive: #1c4932"></a-sphere>
+      </a-entity>
+      <a-entity position="0.75 2.43 -0.12">
+        <a-box width="1.3" height="1.1" depth="0.12" material="color: #151a19; metalness: 0.28; roughness: 0.32"></a-box>
+        <a-plane width="0.71" height="0.9" position="-0.23 0 0.066" material="src: #empanadas-image; shader: flat; roughness: 0.72"></a-plane>
+        <a-sphere radius="0.025" position="-0.57 -0.48 0.075" material="color: #73c9a1; emissive: #1c4932"></a-sphere>
+      </a-entity>
+
+      <!-- Open, tiered displays replace the produce barrels and corner sink counter -->
+      <a-entity position="-4.95 0 -3.55">
+        <a-box position="0 0.11 0" width="1.42" height="0.18" depth="1.76" material="color: #34473d; roughness: 0.68"></a-box>
+        <a-box position="-0.64 0.92 0" width="0.1" height="1.72" depth="1.82" material="color: #46594b; roughness: 0.74"></a-box>
+        <a-box position="0.02 0.88 -0.82" width="1.32" height="1.62" depth="0.12" material="color: #46594b; roughness: 0.74"></a-box>
+        <a-box position="0.02 0.88 0.82" width="1.32" height="1.62" depth="0.12" material="color: #46594b; roughness: 0.74"></a-box>
+        <a-box position="0 0.38 0" width="1.34" height="0.09" depth="1.62" material="color: #88613f; roughness: 0.72"></a-box>
+        <a-box position="0 0.94 0" width="1.34" height="0.09" depth="1.62" material="color: #88613f; roughness: 0.72"></a-box>
+        <a-box position="0 1.5 0" width="1.34" height="0.09" depth="1.62" material="color: #88613f; roughness: 0.72"></a-box>
+        <a-box position="0.61 0.48 0" width="0.06" height="0.12" depth="1.64" material="color: #c5a366; metalness: 0.28"></a-box>
+        <a-box position="0.61 1.04 0" width="0.06" height="0.12" depth="1.64" material="color: #c5a366; metalness: 0.28"></a-box>
+        <a-sphere radius="0.15" position="0.18 0.59 -0.48" material="color: #b94a36; roughness: 0.48"></a-sphere>
+        <a-sphere radius="0.16" position="0.18 0.6 0" material="color: #6f934d; roughness: 0.72"></a-sphere>
+        <a-sphere radius="0.15" position="0.18 0.58 0.48" material="color: #e2a947; roughness: 0.5"></a-sphere>
+        <a-cone radius-bottom="0.1" radius-top="0.015" height="0.36" position="0.18 0.62 -0.18" rotation="0 0 -12" material="color: #e27e35; roughness: 0.52"></a-cone>
+        <a-cone radius-bottom="0.1" radius-top="0.015" height="0.34" position="0.18 0.62 0.23" rotation="0 0 14" material="color: #6f934d; roughness: 0.72"></a-cone>
+        <a-sphere radius="0.14" position="0.18 1.15 -0.47" material="color: #cf5038; roughness: 0.48"></a-sphere>
+        <a-sphere radius="0.14" position="0.18 1.15 0" material="color: #e2a947; roughness: 0.5"></a-sphere>
+        <a-sphere radius="0.14" position="0.18 1.15 0.47" material="color: #79a958; roughness: 0.7"></a-sphere>
+        <a-cylinder radius="0.12" height="0.3" position="0.18 1.73 -0.46" material="color: #b57c3e; roughness: 0.62"></a-cylinder>
+        <a-cylinder radius="0.12" height="0.3" position="0.18 1.73 0" material="color: #547a52; roughness: 0.62"></a-cylinder>
+        <a-cylinder radius="0.12" height="0.3" position="0.18 1.73 0.46" material="color: #a94937; roughness: 0.62"></a-cylinder>
+        <a-cylinder radius="0.123" height="0.045" position="0.18 1.69 -0.46" material="color: #e4d6b8"></a-cylinder>
+        <a-cylinder radius="0.123" height="0.045" position="0.18 1.69 0" material="color: #e4d6b8"></a-cylinder>
+        <a-cylinder radius="0.123" height="0.045" position="0.18 1.69 0.46" material="color: #e4d6b8"></a-cylinder>
+        <a-box position="0 2.03 0" width="1.35" height="0.12" depth="1.72" material="color: #34473d; roughness: 0.68"></a-box>
+      </a-entity>
+
+      <a-entity position="-4.95 0 -6.65">
+        <a-box position="0 0.11 0" width="1.42" height="0.18" depth="1.76" material="color: #34473d; roughness: 0.68"></a-box>
+        <a-box position="-0.64 0.92 0" width="0.1" height="1.72" depth="1.82" material="color: #46594b; roughness: 0.74"></a-box>
+        <a-box position="0.02 0.88 -0.82" width="1.32" height="1.62" depth="0.12" material="color: #46594b; roughness: 0.74"></a-box>
+        <a-box position="0.02 0.88 0.82" width="1.32" height="1.62" depth="0.12" material="color: #46594b; roughness: 0.74"></a-box>
+        <a-box position="0 0.38 0" width="1.34" height="0.09" depth="1.62" material="color: #88613f; roughness: 0.72"></a-box>
+        <a-box position="0 0.94 0" width="1.34" height="0.09" depth="1.62" material="color: #88613f; roughness: 0.72"></a-box>
+        <a-box position="0 1.5 0" width="1.34" height="0.09" depth="1.62" material="color: #88613f; roughness: 0.72"></a-box>
+        <a-box position="0.61 0.48 0" width="0.06" height="0.12" depth="1.64" material="color: #c5a366; metalness: 0.28"></a-box>
+        <a-box position="0.61 1.04 0" width="0.06" height="0.12" depth="1.64" material="color: #c5a366; metalness: 0.28"></a-box>
+        <a-sphere radius="0.13" position="0.18 0.58 -0.45" material="color: #b94a36; roughness: 0.48"></a-sphere>
+        <a-sphere radius="0.13" position="0.18 0.58 0" material="color: #d6a64d; roughness: 0.5"></a-sphere>
+        <a-sphere radius="0.13" position="0.18 0.58 0.45" material="color: #6f934d; roughness: 0.72"></a-sphere>
+        <a-box position="0.18 1.13 -0.42" width="0.26" height="0.28" depth="0.25" rotation="0 0 -8" material="color: #d7a74f; roughness: 0.62"></a-box>
+        <a-box position="0.18 1.13 0" width="0.26" height="0.28" depth="0.25" rotation="0 0 7" material="color: #a44c38; roughness: 0.62"></a-box>
+        <a-box position="0.18 1.13 0.42" width="0.26" height="0.28" depth="0.25" rotation="0 0 -6" material="color: #66834a; roughness: 0.72"></a-box>
+        <a-cylinder radius="0.12" height="0.3" position="0.18 1.73 -0.46" material="color: #66834a; roughness: 0.62"></a-cylinder>
+        <a-cylinder radius="0.12" height="0.3" position="0.18 1.73 0" material="color: #b57c3e; roughness: 0.62"></a-cylinder>
+        <a-cylinder radius="0.12" height="0.3" position="0.18 1.73 0.46" material="color: #a94937; roughness: 0.62"></a-cylinder>
+        <a-cylinder radius="0.123" height="0.045" position="0.18 1.69 -0.46" material="color: #e4d6b8"></a-cylinder>
+        <a-cylinder radius="0.123" height="0.045" position="0.18 1.69 0" material="color: #e4d6b8"></a-cylinder>
+        <a-cylinder radius="0.123" height="0.045" position="0.18 1.69 0.46" material="color: #e4d6b8"></a-cylinder>
+        <a-box position="0 2.03 0" width="1.35" height="0.12" depth="1.72" material="color: #34473d; roughness: 0.68"></a-box>
+      </a-entity>
 
       <!-- Commercial range, oven, stock pot and hood -->
       <a-box position="4.65 0.48 -6.05" width="1.75" height="0.9" depth="4.65" material="color: #59615e; metalness: 0.62; roughness: 0.38"></a-box>
@@ -141,13 +305,11 @@
           animation__rise="property: position; from: 0.2 0.88 -0.02; to: 0.14 1.78 -0.02; dur: 2500; delay: 1200; easing: easeOutSine; loop: true"
           animation__fade="property: material.opacity; from: 0.3; to: 0; dur: 2500; delay: 1200; easing: easeOutSine; loop: true"
           animation__drift="property: scale; from: 0.4 0.8 0.4; to: 0.85 1.8 0.85; dur: 2500; delay: 1200; easing: easeOutSine; loop: true"></a-sphere>
-        <a-text value="SANCOCHO" position="-0.52 1.87 0.04" width="1.3" align="center" color="#fff1d2"></a-text>
       </a-entity>
       <a-box position="4.7 3.05 -6.05" width="2.1" height="0.24" depth="2.8" material="color: #89918c; metalness: 0.7; roughness: 0.34"></a-box>
       <a-box position="4.7 2.91 -6.05" width="1.55" height="0.09" depth="2.15" material="color: #414844; metalness: 0.48"></a-box>
       <a-box position="4.7 3.42 -7.08" width="0.66" height="0.62" depth="0.65" material="color: #858d87; metalness: 0.65"></a-box>
       <a-cylinder radius="0.32" height="0.08" position="4.7 3.78 -7.08" material="color: #747d77; metalness: 0.7"></a-cylinder>
-      <a-text value="ESTUFA · OLLA DE SANCOCHO" position="3.68 2.1 -8.38" width="2.4" align="center" color="#f0d498"></a-text>
 
       <!-- Deep fryer with oil and removable basket -->
       <a-box position="4.55 0.78 -3.55" width="1.5" height="1.25" depth="1.2" material="color: #777f79; metalness: 0.7; roughness: 0.32"></a-box>
@@ -156,10 +318,9 @@
       <a-box position="4.55 1.76 -3.55" width="0.62" height="0.38" depth="0.54" material="color: #9ba29c; metalness: 0.68; roughness: 0.35"></a-box>
       <a-box position="4.55 1.98 -3.55" width="0.06" height="0.3" depth="0.06" material="color: #b7beb8; metalness: 0.7"></a-box>
       <a-sphere radius="0.05" position="3.8 1.18 -3.55" material="color: #dcaa50; metalness: 0.4"></a-sphere>
-      <a-text value="FREIDORA" position="3.8 2.22 -4.28" width="1.7" align="center" color="#f0d498"></a-text>
 
-      <!-- Restaurant dining room: smaller table settings and chairs -->
-      <a-entity position="-3.85 0 5.4">
+      <!-- Restaurant dining room: two organized four-seat tables -->
+      <a-entity position="-3.15 0 5.55">
         <a-box position="0 0.78 0" width="1.7" height="0.14" depth="1.35" mixin="wood"></a-box>
         <a-box position="-0.65 0.39 -0.48" width="0.1" height="0.78" depth="0.1" mixin="wood"></a-box>
         <a-box position="0.65 0.39 -0.48" width="0.1" height="0.78" depth="0.1" mixin="wood"></a-box>
@@ -169,8 +330,40 @@
         <a-cylinder radius="0.16" height="0.035" position="0.28 0.88 0" material="color: #e8dfc7"></a-cylinder>
         <a-sphere radius="0.075" position="-0.28 0.92 0" material="color: #b44d38"></a-sphere>
         <a-sphere radius="0.075" position="0.28 0.92 0" material="color: #d6a64d"></a-sphere>
+        <a-entity class="clickable" data-action="chair" data-object="chair" position="0 0 1.28" rotation="0 180 0">
+          <a-box position="0 0.5 0" width="0.72" height="0.13" depth="0.7" mixin="wood"></a-box>
+          <a-box position="0 1.05 -0.28" width="0.72" height="0.95" depth="0.12" mixin="wood"></a-box>
+          <a-box position="-0.27 0.25 -0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+          <a-box position="0.27 0.25 -0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+          <a-box position="-0.27 0.25 0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+          <a-box position="0.27 0.25 0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+        </a-entity>
+        <a-entity class="clickable" data-action="chair" data-object="chair" position="0 0 -1.28">
+          <a-box position="0 0.5 0" width="0.72" height="0.13" depth="0.7" mixin="wood"></a-box>
+          <a-box position="0 1.05 -0.28" width="0.72" height="0.95" depth="0.12" mixin="wood"></a-box>
+          <a-box position="-0.27 0.25 -0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+          <a-box position="0.27 0.25 -0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+          <a-box position="-0.27 0.25 0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+          <a-box position="0.27 0.25 0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+        </a-entity>
+        <a-entity class="clickable" data-action="chair" data-object="chair" position="-1.28 0 0" rotation="0 90 0">
+          <a-box position="0 0.5 0" width="0.72" height="0.13" depth="0.7" mixin="wood"></a-box>
+          <a-box position="0 1.05 -0.28" width="0.72" height="0.95" depth="0.12" mixin="wood"></a-box>
+          <a-box position="-0.27 0.25 -0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+          <a-box position="0.27 0.25 -0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+          <a-box position="-0.27 0.25 0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+          <a-box position="0.27 0.25 0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+        </a-entity>
+        <a-entity class="clickable" data-action="chair" data-object="chair" position="1.28 0 0" rotation="0 -90 0">
+          <a-box position="0 0.5 0" width="0.72" height="0.13" depth="0.7" mixin="wood"></a-box>
+          <a-box position="0 1.05 -0.28" width="0.72" height="0.95" depth="0.12" mixin="wood"></a-box>
+          <a-box position="-0.27 0.25 -0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+          <a-box position="0.27 0.25 -0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+          <a-box position="-0.27 0.25 0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+          <a-box position="0.27 0.25 0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+        </a-entity>
       </a-entity>
-      <a-entity position="3.85 0 5.4">
+      <a-entity position="3.15 0 5.55">
         <a-box position="0 0.78 0" width="1.7" height="0.14" depth="1.35" mixin="wood"></a-box>
         <a-box position="-0.65 0.39 -0.48" width="0.1" height="0.78" depth="0.1" mixin="wood"></a-box>
         <a-box position="0.65 0.39 -0.48" width="0.1" height="0.78" depth="0.1" mixin="wood"></a-box>
@@ -180,79 +373,81 @@
         <a-cylinder radius="0.16" height="0.035" position="0.28 0.88 0" material="color: #e8dfc7"></a-cylinder>
         <a-sphere radius="0.075" position="-0.28 0.92 0" material="color: #b44d38"></a-sphere>
         <a-sphere radius="0.075" position="0.28 0.92 0" material="color: #d6a64d"></a-sphere>
+        <a-entity class="clickable" data-action="chair" data-object="chair" position="0 0 1.28" rotation="0 180 0">
+          <a-box position="0 0.5 0" width="0.72" height="0.13" depth="0.7" mixin="wood"></a-box>
+          <a-box position="0 1.05 -0.28" width="0.72" height="0.95" depth="0.12" mixin="wood"></a-box>
+          <a-box position="-0.27 0.25 -0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+          <a-box position="0.27 0.25 -0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+          <a-box position="-0.27 0.25 0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+          <a-box position="0.27 0.25 0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+        </a-entity>
+        <a-entity class="clickable" data-action="chair" data-object="chair" position="0 0 -1.28">
+          <a-box position="0 0.5 0" width="0.72" height="0.13" depth="0.7" mixin="wood"></a-box>
+          <a-box position="0 1.05 -0.28" width="0.72" height="0.95" depth="0.12" mixin="wood"></a-box>
+          <a-box position="-0.27 0.25 -0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+          <a-box position="0.27 0.25 -0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+          <a-box position="-0.27 0.25 0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+          <a-box position="0.27 0.25 0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+        </a-entity>
+        <a-entity class="clickable" data-action="chair" data-object="chair" position="-1.28 0 0" rotation="0 90 0">
+          <a-box position="0 0.5 0" width="0.72" height="0.13" depth="0.7" mixin="wood"></a-box>
+          <a-box position="0 1.05 -0.28" width="0.72" height="0.95" depth="0.12" mixin="wood"></a-box>
+          <a-box position="-0.27 0.25 -0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+          <a-box position="0.27 0.25 -0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+          <a-box position="-0.27 0.25 0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+          <a-box position="0.27 0.25 0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+        </a-entity>
+        <a-entity class="clickable" data-action="chair" data-object="chair" position="1.28 0 0" rotation="0 -90 0">
+          <a-box position="0 0.5 0" width="0.72" height="0.13" depth="0.7" mixin="wood"></a-box>
+          <a-box position="0 1.05 -0.28" width="0.72" height="0.95" depth="0.12" mixin="wood"></a-box>
+          <a-box position="-0.27 0.25 -0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+          <a-box position="0.27 0.25 -0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+          <a-box position="-0.27 0.25 0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+          <a-box position="0.27 0.25 0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
+        </a-entity>
       </a-entity>
 
       <!-- Wall art in the front room -->
-      <a-entity class="clickable" data-action="maize" data-object="maize" position="-5.78 2.15 3.1" rotation="0 90 0">
-        <a-box width="1.7" height="1.55" depth="0.1" mixin="gold"></a-box>
-        <a-box width="1.48" height="1.32" depth="0.08" position="0 0 0.07" material="color: #47634b"></a-box>
-        <a-cylinder radius="0.12" height="0.75" position="-0.35 -0.06 0.16" rotation="0 0 10" material="color: #e4b943"></a-cylinder>
-        <a-cylinder radius="0.12" height="0.75" position="0 -0.06 0.16" rotation="0 0 -7" material="color: #f0cd62"></a-cylinder>
-        <a-cylinder radius="0.12" height="0.75" position="0.35 -0.06 0.16" rotation="0 0 10" material="color: #d49b31"></a-cylinder>
-        <a-text value="MAÍZ Y MEMORIA" position="0 -0.56 0.17" width="1.3" align="center" color="#fff4d5"></a-text>
-      </a-entity>
-      <a-entity position="-5.78 2.2 -1.15" rotation="0 90 0">
-        <a-box width="1.7" height="1.45" depth="0.1" mixin="gold"></a-box>
-        <a-box width="1.48" height="1.23" depth="0.08" position="0 0 0.07" material="color: #bd7652"></a-box>
-        <a-box width="1.05" height="0.32" depth="0.13" position="0 -0.15 0.17" material="color: #e5c27b"></a-box>
-        <a-box width="1.08" height="0.16" depth="0.13" position="0 0.08 0.17" material="color: #6f9b5b"></a-box>
-        <a-text value="SÁNDWICHES" position="0 -0.48 0.18" width="1.2" align="center" color="#fff4d5"></a-text>
+      <a-entity position="-5.78 1.62 2" rotation="0 90 0">
+        <a-box width="2.28" height="3.24" depth="0.16" material="color: #493328; roughness: 0.76"></a-box>
+        <a-box width="1.86" height="2.98" depth="0.12" position="0 0 0.1" material="color: #c59a5b; roughness: 0.58"></a-box>
+        <a-box width="1.58" height="2.72" depth="0.08" position="0 -0.06 0.17" material="color: #68432d; roughness: 0.7"></a-box>
+        <a-box width="1.34" height="0.82" depth="0.045" position="0 0.73 0.225" material="color: #754c31; roughness: 0.7"></a-box>
+        <a-box width="1.34" height="0.82" depth="0.045" position="0 -0.23 0.225" material="color: #754c31; roughness: 0.7"></a-box>
+        <a-box width="1.34" height="0.82" depth="0.045" position="0 -1.12 0.225" material="color: #754c31; roughness: 0.7"></a-box>
+        <a-box width="0.035" height="2.58" depth="0.035" position="0 0 0.255" material="color: #b78a4c; metalness: 0.2; roughness: 0.5"></a-box>
+        <a-cylinder radius="0.055" height="0.08" position="0.55 -0.1 0.29" rotation="90 0 0" material="color: #d7a74f; metalness: 0.72; roughness: 0.24"></a-cylinder>
+        <a-torus radius="0.085" radius-tubular="0.018" position="0.55 -0.1 0.31" rotation="90 0 0" material="color: #e8c46e; metalness: 0.74; roughness: 0.22"></a-torus>
       </a-entity>
       <a-entity class="clickable" data-action="map" data-object="map" position="5.78 2.2 1.1" rotation="0 -90 0">
         <a-box width="1.9" height="1.5" depth="0.12" mixin="gold"></a-box>
-        <a-box width="1.68" height="1.28" depth="0.08" position="0 0 0.08" material="color: #467a78"></a-box>
-        <a-sphere radius="0.48" position="0 0.05 0.18" material="color: #73a16b; roughness: 0.8"></a-sphere>
-        <a-torus radius="0.53" radius-tubular="0.025" position="0 0.05 0.2" rotation="90 0 0" material="color: #e6d6a8"></a-torus>
-        <a-text value="RUTAS LATINAS" position="0 -0.52 0.2" width="1.35" align="center" color="#fff4d5"></a-text>
+        <a-plane width="1.68" height="1.28" position="0 0 0.09" material="src: #world-map-image; shader: flat; roughness: 0.65"></a-plane>
+        <a-plane width="1.68" height="1.28" position="0 0 -0.09" rotation="0 180 0" material="src: #world-map-image; shader: flat; roughness: 0.65"></a-plane>
       </a-entity>
-      <a-entity class="clickable" data-action="soup" data-object="soup" position="5.78 2.05 -2.35" rotation="0 -90 0">
-        <a-box width="1.55" height="1.4" depth="0.1" mixin="gold"></a-box>
-        <a-box width="1.34" height="1.2" depth="0.08" position="0 0 0.07" material="color: #a45d3c"></a-box>
-        <a-cylinder radius="0.42" height="0.15" position="0 -0.13 0.17" material="color: #eee1bf"></a-cylinder>
-        <a-circle radius="0.34" position="0 -0.04 0.26" material="color: #b98a44"></a-circle>
-        <a-text value="SOPAS" position="0 -0.48 0.18" width="1.2" align="center" color="#fff4d5"></a-text>
-      </a-entity>
-
-      <!-- Dining table with an interactive plated ear of corn -->
-      <a-cylinder position="0 0.9 1.3" radius="1.75" height="0.22" mixin="wood"></a-cylinder>
-      <a-cylinder position="0 0.43 1.3" radius="0.16" height="0.8" mixin="wood"></a-cylinder>
-      <a-cylinder position="0 0.12 1.3" radius="0.7" height="0.16" mixin="wood"></a-cylinder>
-      <a-entity class="clickable" data-action="intro" data-object="intro" position="0 0.99 1.3">
+      <!-- Large central stainless-steel kitchen island -->
+      <a-box position="0 0.47 -4.5" width="4.3" height="0.9" depth="2.3" material="color: #65706d; metalness: 0.42; roughness: 0.52"></a-box>
+      <a-box position="0 0.97 -4.5" width="4.48" height="0.12" depth="2.48" material="color: #b7c0bb; metalness: 0.76; roughness: 0.27"></a-box>
+      <a-box position="0.92 0.44 -3.33" width="0.035" height="0.62" depth="0.025" material="color: #c1c6c1; metalness: 0.72"></a-box>
+      <a-box position="0 0.44 -3.33" width="0.035" height="0.62" depth="0.025" material="color: #c1c6c1; metalness: 0.72"></a-box>
+      <a-box position="-0.92 0.44 -3.33" width="0.035" height="0.62" depth="0.025" material="color: #c1c6c1; metalness: 0.72"></a-box>
+      <a-box position="0.92 0.71 -3.3" width="0.32" height="0.035" depth="0.035" material="color: #d3aa5e; metalness: 0.68"></a-box>
+      <a-box position="0 0.71 -3.3" width="0.32" height="0.035" depth="0.035" material="color: #d3aa5e; metalness: 0.68"></a-box>
+      <a-box position="-0.92 0.71 -3.3" width="0.32" height="0.035" depth="0.035" material="color: #d3aa5e; metalness: 0.68"></a-box>
+      <a-entity class="clickable" data-action="intro" data-object="intro" position="-1.25 1.03 -4.5">
         <a-cylinder radius="0.33" height="0.06" material="color: #d8c49c"></a-cylinder>
         <a-torus radius="0.24" radius-tubular="0.025" position="0 0.06 0" rotation="90 0 0" material="color: #a64e37"></a-torus>
-        <a-text value="ARCHIVO" position="-0.42 0.45 0" width="1.3" align="center" color="#fff1d2"></a-text>
       </a-entity>
-      <a-entity class="clickable" data-action="maize" data-object="maize" position="-0.82 1.02 1.3" corn-platter>
-        <a-text value="ELOTE" position="-0.2 0.4 0" width="0.8" align="center" color="#fff1d2"></a-text>
+      <a-entity class="clickable" data-action="maize" data-object="maize" position="0 1.03 -4.5" corn-platter>
       </a-entity>
 
-      <a-entity class="clickable" data-action="cuban" data-object="cuban-extra" position="-2.5 0.03 1.25">
+      <a-entity position="1.25 1.03 -4.5">
         <a-cylinder radius="0.34" height="0.08" material="color: #d9c8a9"></a-cylinder>
         <a-box width="0.6" height="0.22" depth="0.24" position="0 0.16 0" rotation="0 0 -7" material="color: #d5a35b"></a-box>
         <a-box width="0.49" height="0.08" depth="0.2" position="0 0.17 0" material="color: #9c4c36"></a-box>
-        <a-text value="SÁNDWICH CUBANO" position="-0.8 0.52 0" width="1.8" align="center" color="#fff1d2"></a-text>
-      </a-entity>
-
-      <a-entity class="clickable" data-action="chair" data-object="chair" position="2.8 0 3.1">
-        <a-box position="0 0.5 0" width="0.72" height="0.13" depth="0.7" mixin="wood"></a-box>
-        <a-box position="0 1.05 -0.28" width="0.72" height="0.95" depth="0.12" mixin="wood"></a-box>
-        <a-box position="-0.27 0.25 -0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
-        <a-box position="0.27 0.25 -0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
-        <a-box position="-0.27 0.25 0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
-        <a-box position="0.27 0.25 0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
-        <a-text value="SILLA" position="-0.35 1.7 0" width="1" align="center" color="#fff1d2"></a-text>
-      </a-entity>
-      <a-entity position="-2.9 0 3.15" rotation="0 180 0">
-        <a-box position="0 0.5 0" width="0.72" height="0.13" depth="0.7" mixin="wood"></a-box>
-        <a-box position="0 1.05 -0.28" width="0.72" height="0.95" depth="0.12" mixin="wood"></a-box>
-        <a-box position="-0.27 0.25 -0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
-        <a-box position="0.27 0.25 -0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
-        <a-box position="-0.27 0.25 0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
-        <a-box position="0.27 0.25 0.26" width="0.1" height="0.5" depth="0.1" mixin="wood"></a-box>
       </a-entity>
 
       <!-- Second room: tropical fish tank and plants -->
-      <a-entity class="clickable" data-action="cuban" data-object="fish-tank" position="0 1.9 -4.6">
+      <a-entity class="clickable" data-action="cuban" data-object="fish-tank" position="0 1.39 8.34" rotation="0 180 0">
         <!-- Cabinet and framed glass tank -->
         <a-box width="3.45" height="0.62" depth="1.02" position="0 -1.08 0" material="color: #493328; roughness: 0.62"></a-box>
         <a-box width="3.5" height="0.09" depth="1.08" position="0 -0.75 0" material="color: #81543b; roughness: 0.45"></a-box>
@@ -314,34 +509,52 @@
         <a-sphere radius="0.028" position="0.8 -0.35 0.18" material="color: #c9f3f0; opacity: 0.58; transparent: true; roughness: 0.1"
           animation="property: position; from: 0.8 -0.4 0.18; to: 0.77 0.55 0.18; dur: 3900; delay: 2200; easing: linear; loop: true"></a-sphere>
 
-        <!-- Glass reflections and readable interactive label -->
+        <!-- Glass reflections -->
         <a-box width="0.035" height="1.14" depth="0.012" position="-1.48 0.02 0.43" material="color: #efffff; opacity: 0.34; transparent: true"></a-box>
         <a-box width="0.035" height="1.14" depth="0.012" position="-1.39 0.02 0.43" material="color: #efffff; opacity: 0.18; transparent: true"></a-box>
-        <a-text value="PECERA · HISTORIAS DEL SÁNDWICH" position="-1.33 1.02 0.48" width="3" color="#fff1d2" align="center"></a-text>
       </a-entity>
-      <a-entity class="clickable" data-action="cuban" data-object="cuban-extra" position="4.8 0.15 -5.3">
+      <a-entity position="4.8 0.15 -5.3">
         <a-cylinder radius="0.19" height="0.45" material="color: #69b4a2; opacity: 0.8; transparent: true"></a-cylinder>
         <a-cylinder radius="0.2" height="0.05" position="0 0.25 0" material="color: #83c48d"></a-cylinder>
-        <a-text value="BEBIDA TROPICAL" position="-0.75 0.65 0" width="1.5" align="center" color="#fff1d2"></a-text>
       </a-entity>
-      <a-entity position="-5.3 0 -6.9">
-        <a-cylinder radius="0.42" height="0.55" material="color: #a95f40"></a-cylinder>
-        <a-sphere radius="0.65" position="0 0.85 0" scale="1 1.1 1" material="color: #45704b"></a-sphere>
-        <a-sphere radius="0.43" position="0.35 1.25 0.1" material="color: #568553"></a-sphere>
+      <!-- Ceviche and rice pudding beside the final-code exit door -->
+      <a-entity position="-2.25 2.25 -8.78">
+        <a-box width="1.48" height="1.72" depth="0.09" mixin="gold"></a-box>
+        <a-box width="1.32" height="1.56" depth="0.02" position="0 0 0.05" material="color: #477d82"></a-box>
+        <a-plane width="1.0632" height="1.35" position="0 0 0.07" material="src: #ceviche-image; shader: flat; roughness: 0.72"></a-plane>
+      </a-entity>
+      <a-entity position="2.25 2.25 -8.78">
+        <a-box width="1.48" height="1.72" depth="0.09" mixin="gold"></a-box>
+        <a-box width="1.32" height="1.56" depth="0.02" position="0 0 0.05" material="color: #9a7045"></a-box>
+        <a-plane width="1.2079" height="1.35" position="0 0 0.07" material="src: #rice-pudding-image; shader: flat; roughness: 0.72"></a-plane>
       </a-entity>
 
       <!-- Exit door -->
-      <a-entity class="clickable" data-action="exit" data-object="exit" position="0 1.5 -8.7">
-        <a-box width="1.45" height="2.85" depth="0.12" mixin="wood"></a-box>
-        <a-box width="1.1" height="2.5" depth="0.06" position="0 0 0.08" material="color: #523527"></a-box>
-        <a-sphere radius="0.07" position="0.48 -0.03 0.18" mixin="gold"></a-sphere>
-        <a-text value="SALIDA" position="-0.48 1.65 0.12" width="1" align="center" color="#f1d29a"></a-text>
+      <a-entity class="clickable" data-action="exit" data-object="exit" position="0 1.5 -8.92">
+        <a-box width="1.76" height="3" depth="0.015" position="0 0 0.16" material="color: #ffffff; transparent: true; opacity: 0.01; depthWrite: false; side: double"></a-box>
+        <a-box width="1.78" height="3.08" depth="0.2" position="0 0 -0.04" material="color: #493328; roughness: 0.76"></a-box>
+        <a-box width="1.48" height="2.88" depth="0.14" mixin="wood"></a-box>
+        <a-box width="1.22" height="2.62" depth="0.045" position="0 0 0.035" material="color: #68432d; roughness: 0.7"></a-box>
+        <a-box width="0.42" height="0.82" depth="0.045" position="-0.25 0.72 0.035" material="color: #754c31; roughness: 0.7"></a-box>
+        <a-box width="0.42" height="0.82" depth="0.045" position="0.25 0.72 0.035" material="color: #754c31; roughness: 0.7"></a-box>
+        <a-box width="0.92" height="0.86" depth="0.045" position="0 -0.66 0.035" material="color: #754c31; roughness: 0.7"></a-box>
+        <a-box width="0.035" height="2.54" depth="0.035" position="0 0 0.075" material="color: #a97945; metalness: 0.18; roughness: 0.5"></a-box>
+        <a-box width="0.025" height="0.035" depth="0.02" position="-0.57 1.34 0.075" material="color: #d7a74f; metalness: 0.55"></a-box>
+        <a-box width="0.025" height="0.035" depth="0.02" position="0.57 1.34 0.075" material="color: #d7a74f; metalness: 0.55"></a-box>
+        <a-box width="0.025" height="0.035" depth="0.02" position="-0.57 0.1 0.075" material="color: #d7a74f; metalness: 0.55"></a-box>
+        <a-box width="0.025" height="0.035" depth="0.02" position="0.57 0.1 0.075" material="color: #d7a74f; metalness: 0.55"></a-box>
+        <a-box width="1.84" height="0.12" depth="0.12" position="0 1.58 0.02" material="color: #8d623b; metalness: 0.12; roughness: 0.5"></a-box>
+        <a-box width="0.06" height="0.21" depth="0.07" position="-0.61 0.78 0.075" material="color: #b6a58a; metalness: 0.78; roughness: 0.27"></a-box>
+        <a-box width="0.06" height="0.21" depth="0.07" position="-0.61 -0.06 0.075" material="color: #b6a58a; metalness: 0.78; roughness: 0.27"></a-box>
+        <a-box width="0.06" height="0.21" depth="0.07" position="-0.61 -0.9 0.075" material="color: #b6a58a; metalness: 0.78; roughness: 0.27"></a-box>
+        <a-cylinder radius="0.045" height="0.08" position="0.47 -0.03 0.1" rotation="90 0 0" material="color: #d7a74f; metalness: 0.72; roughness: 0.24"></a-cylinder>
+        <a-torus radius="0.075" radius-tubular="0.018" position="0.47 -0.03 0.12" rotation="90 0 0" material="color: #e8c46e; metalness: 0.74; roughness: 0.22"></a-torus>
+        <a-box width="0.94" height="0.36" depth="0.09" position="0 1.82 0.02" material="color: #24352b; metalness: 0.1; roughness: 0.64"></a-box>
+        <a-triangle vertex-a="-0.1 0.02 0" vertex-b="0.1 0.02 0" vertex-c="0 0.17 0" position="0 1.48 0.08" material="color: #e7bd60; emissive: #704b1f"></a-triangle>
       </a-entity>
-      <a-text value="1 · RESTAURANTE" position="-5.5 3.7 8.7" width="4" color="#f3d9a8"></a-text>
-      <a-text value="2 · SALÓN DE LAS MEMORIAS" position="-5.5 3.7 -7.7" width="5" color="#f3d9a8"></a-text>
 
       <a-entity id="rig" position="0 0 7.3" arrow-walk>
-        <a-entity id="camera" camera position="0 1.65 0" look-controls="pointerLockEnabled: false" wasd-controls="enabled: false"></a-entity>
+        <a-entity id="camera" camera position="0 1.65 0" mouse-look="sensitivity: 0.0045" wasd-controls="enabled: false"></a-entity>
       </a-entity>
     </a-scene>
 
@@ -353,10 +566,18 @@
 
     <aside class="instructions">
       <span class="key">↑</span><span class="key">↓</span><span class="key">←</span><span class="key">→</span>
-      <span>Moverse</span><span class="mouse-icon">⌖</span><span>Mirar</span><span class="hint">Haz clic en los objetos brillantes</span>
+      <span>Moverse</span><span class="mouse-icon">⌖</span><span>Giro sin límite: clic en espacio vacío o cierra un panel · Esc: liberar</span><span class="hint">Clic en objetos para interactuar</span>
     </aside>
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <div id="resume-overlay" class="resume-overlay hidden" role="button" tabindex="0" aria-label="Reanudar experiencia">
+      <div class="resume-card">
+        <span class="resume-mark" aria-hidden="true">✦</span>
+        <strong>La experiencia está en pausa</strong>
+        <span>Haz clic en cualquier parte para volver al restaurante.</span>
+        <span class="resume-hint">El movimiento y la cámara se reactivarán al continuar.</span>
+      </div>
+    </div>
     <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
       <section class="panel">
         <button id="close-modal" class="close" type="button" aria-label="Cerrar">×</button>
@@ -370,6 +591,11 @@
         </div>
       </section>
     </div>
+    <div id="finish-screen" class="finish-screen hidden" role="status">
+      <strong>¡Gracias por recuperar la memoria gastronómica!</strong>
+      <span>Has finalizado la experiencia. Ya puedes cerrar esta pestaña.</span>
+    </div>
+    <div id="mouse-reticle" class="mouse-reticle hidden" aria-hidden="true"></div>
   </main>
 </body>
 </html>
