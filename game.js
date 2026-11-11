@@ -116,6 +116,8 @@ AFRAME.registerComponent("arrow-walk", {
       { type: "box", x: 0, z: -4.5, halfWidth: 2.24, halfDepth: 1.24 },
       { type: "box", x: -4.95, z: -3.55, halfWidth: 0.72, halfDepth: 0.9 },
       { type: "box", x: -4.95, z: -6.65, halfWidth: 0.72, halfDepth: 0.9 },
+      { type: "box", x: 4.65, z: -6.05, halfWidth: 0.95, halfDepth: 2.425 },
+      { type: "box", x: 4.55, z: -3.55, halfWidth: 0.79, halfDepth: 0.64 },
       { type: "box", x: -3.15, z: 5.55, halfWidth: 0.85, halfDepth: 0.675 },
       { type: "box", x: 3.15, z: 5.55, halfWidth: 0.85, halfDepth: 0.675 },
       { type: "box", x: -3.15, z: 4.27, halfWidth: 0.42, halfDepth: 0.42 },
@@ -249,6 +251,22 @@ AFRAME.registerComponent("mouse-look", {
   const hud = document.querySelector(".hud");
   const instructions = document.querySelector(".instructions");
   const found = new Set();
+  let activeStage = "maize";
+  const nextStage = {
+    maize: "cuban",
+    cuban: "soup",
+    soup: "chair",
+    chair: "map",
+    map: "exit"
+  };
+  const stagePrompts = {
+    maize: "Empieza por el elote sobre la isla.",
+    cuban: "Completa primero el reto de la pecera.",
+    soup: "Completa primero el reto de la olla de sancocho.",
+    chair: "Completa primero el reto de una silla.",
+    map: "Completa primero el reto del mapa.",
+    exit: "Ya puedes ingresar el código final en cualquiera de las dos puertas."
+  };
   let timeLeft = 12 * 60;
   let timeExpired = false;
   let leftActiveWindow = false;
@@ -333,6 +351,7 @@ AFRAME.registerComponent("mouse-look", {
   const success = (key) => {
     const clue = clues[key];
     found.add(key);
+    if (activeStage === key) activeStage = nextStage[key] || activeStage;
     const successMessages = {
       maize: "Ahora busca un pequeño mundo acuático. ¡Allí podría esconderse tu próxima pista!",
       cuban: "¡Buen trabajo! El segundo código es 9. Ahora busca por un plato caliente que reúne diferentes ingredientes en un solo caldo. ¡Tu próxima pista te espera allí!",
@@ -682,12 +701,16 @@ AFRAME.registerComponent("mouse-look", {
 
     canvas.addEventListener("pointermove", (event) => {
       const target = targetAt(event);
-      canvas.style.cursor = target ? "pointer" : "crosshair";
+      canvas.style.cursor = target?.dataset.action === activeStage ? "pointer" : "crosshair";
     });
     canvas.addEventListener("click", (event) => {
       if (!modal.classList.contains("hidden") || !resumeOverlay.classList.contains("hidden")) return;
       const target = targetAt(event);
       const actionName = target?.dataset.action;
+      if (target && actionName !== activeStage) {
+        tell(stagePrompts[activeStage]);
+        return;
+      }
       const action = actionName && actions[actionName];
       if (action) {
         action();

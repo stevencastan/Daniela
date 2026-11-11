@@ -147,21 +147,32 @@ a-scene { position: absolute; inset: 0; }
 .hidden { display: none !important; }
 .panel {
   position: relative;
+  display: flex;
+  flex-direction: column;
   width: min(620px, 100%);
   max-height: min(82vh, 760px);
-  overflow: auto;
+  overflow: hidden;
   padding: 38px clamp(23px, 5vw, 52px) 30px;
   border: 1px solid rgba(229, 185, 97, .44);
   border-radius: 10px;
   background: var(--panel);
   box-shadow: 0 22px 90px rgba(0, 0, 0, .48);
 }
+.panel-scroll {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
 .close {
   position: absolute;
   top: 14px;
   right: 17px;
+  z-index: 1;
+  width: 36px;
+  height: 36px;
   border: 0;
-  background: transparent;
+  border-radius: 50%;
+  background: var(--panel);
   color: #d7cdbb;
   font-size: 29px;
   cursor: pointer;

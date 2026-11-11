@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#172720">
   <title>El archivo de la memoria gastronómica</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=20261111-sticky-modal-close-v1">
   <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
-  <script defer src="game.js?v=20261109-product-display-stands-v1"></script>
+  <script defer src="game.js?v=20261111-stove-fryer-collision-v1"></script>
 </head>
 <body>
   <main id="game">
@@ -43,12 +43,40 @@
       <a-entity light="type: point; color: #75b8bd; intensity: 0.8; distance: 8" position="-4 2 -7"></a-entity>
 
       <a-entity id="finish-room" visible="false">
-        <a-box position="0 -0.15 0" width="12" height="0.3" depth="18" material="color: #e8d7b8; roughness: 0.92"></a-box>
-        <a-box position="0 4.1 0" width="12" height="0.3" depth="18" material="color: #eaf3e9; roughness: 0.94"></a-box>
-        <a-box position="-6 2 0" width="0.3" height="4" depth="18" material="color: #f3ead8; roughness: 0.92"></a-box>
-        <a-box position="6 2 0" width="0.3" height="4" depth="18" material="color: #f3ead8; roughness: 0.92"></a-box>
-        <a-box position="0 2 -9" width="12" height="4" depth="0.3" material="color: #dceee4; roughness: 0.92"></a-box>
-        <a-box position="0 2 9" width="12" height="4" depth="0.3" material="color: #f3ead8; roughness: 0.92"></a-box>
+        <a-box position="0 -0.15 0" width="12" height="0.3" depth="18" material="color: #9a7553; roughness: 0.76"></a-box>
+        <a-box position="0 4.1 0" width="12" height="0.3" depth="18" material="color: #e6d9c2; roughness: 0.88"></a-box>
+        <a-box position="-6 2 0" width="0.3" height="4" depth="18" mixin="cream"></a-box>
+        <a-box position="6 2 0" width="0.3" height="4" depth="18" mixin="cream"></a-box>
+        <a-box position="0 2 9" width="12" height="4" depth="0.3" mixin="cream"></a-box>
+        <a-box position="-3.37 2 -9" width="5.26" height="4" depth="0.3" material="color: #b56e56; roughness: 0.92"></a-box>
+        <a-box position="3.37 2 -9" width="5.26" height="4" depth="0.3" material="color: #b56e56; roughness: 0.92"></a-box>
+        <a-box position="0 3.55 -9" width="3.8" height="0.9" depth="0.3" material="color: #b56e56; roughness: 0.92"></a-box>
+        <a-box position="0.75 0.012 0" width="1.48" height="0.018" depth="17.96" material="color: #ad845c; roughness: 0.72"></a-box>
+        <a-box position="2.25 0.012 0" width="1.48" height="0.018" depth="17.96" material="color: #a77c54; roughness: 0.74"></a-box>
+        <a-box position="3.75 0.012 0" width="1.48" height="0.018" depth="17.96" material="color: #b1875d; roughness: 0.72"></a-box>
+        <a-box position="5.25 0.012 0" width="1.48" height="0.018" depth="17.96" material="color: #a77c54; roughness: 0.74"></a-box>
+        <a-box position="-5.25 0.012 0" width="1.48" height="0.018" depth="17.96" material="color: #ad845c; roughness: 0.72"></a-box>
+        <a-box position="-3.75 0.012 0" width="1.48" height="0.018" depth="17.96" material="color: #a77c54; roughness: 0.74"></a-box>
+        <a-box position="-2.25 0.012 0" width="1.48" height="0.018" depth="17.96" material="color: #b1875d; roughness: 0.72"></a-box>
+        <a-box position="-0.75 0.012 0" width="1.48" height="0.018" depth="17.96" material="color: #a77c54; roughness: 0.74"></a-box>
+        <a-box position="0 0.023 -7" width="11.98" height="0.004" depth="0.014" material="color: #76563c"></a-box>
+        <a-box position="0 0.023 -4.8" width="11.98" height="0.004" depth="0.014" material="color: #76563c"></a-box>
+        <a-box position="0 0.023 -2.6" width="11.98" height="0.004" depth="0.014" material="color: #76563c"></a-box>
+        <a-box position="0 0.023 -0.4" width="11.98" height="0.004" depth="0.014" material="color: #76563c"></a-box>
+        <a-box position="0 0.023 1.8" width="11.98" height="0.004" depth="0.014" material="color: #76563c"></a-box>
+        <a-box position="0 0.023 4" width="11.98" height="0.004" depth="0.014" material="color: #76563c"></a-box>
+        <a-box position="0 0.023 6.2" width="11.98" height="0.004" depth="0.014" material="color: #76563c"></a-box>
+        <a-box position="-4 3.88 0" width="0.12" height="0.1" depth="17.7" material="color: #795b3e; roughness: 0.72"></a-box>
+        <a-box position="0 3.88 0" width="0.12" height="0.1" depth="17.7" material="color: #795b3e; roughness: 0.72"></a-box>
+        <a-box position="4 3.88 0" width="0.12" height="0.1" depth="17.7" material="color: #795b3e; roughness: 0.72"></a-box>
+        <a-box position="0 3.88 -7" width="11.8" height="0.1" depth="0.12" material="color: #795b3e; roughness: 0.72"></a-box>
+        <a-box position="0 3.88 -3.5" width="11.8" height="0.1" depth="0.12" material="color: #795b3e; roughness: 0.72"></a-box>
+        <a-box position="0 3.88 0" width="11.8" height="0.1" depth="0.12" material="color: #795b3e; roughness: 0.72"></a-box>
+        <a-box position="0 3.88 3.5" width="11.8" height="0.1" depth="0.12" material="color: #795b3e; roughness: 0.72"></a-box>
+        <a-box position="0 3.88 7" width="11.8" height="0.1" depth="0.12" material="color: #795b3e; roughness: 0.72"></a-box>
+        <a-box position="0 2.65 -8.78" width="5.2" height="1.24" depth="0.11" material="color: #d7a74f; metalness: 0.15; roughness: 0.38"></a-box>
+        <a-box position="0 2.65 -8.71" width="4.92" height="0.98" depth="0.07" material="color: #35433b; roughness: 0.76"></a-box>
+        <a-text value="¡¡FELICIDADES!!" position="0 2.59 -8.66" width="6.2" align="center" color="#f0d18a" shader="flat" side="double"></a-text>
       </a-entity>
 
       <!-- Two connected restaurant rooms -->
@@ -407,8 +435,8 @@
         </a-entity>
       </a-entity>
 
-      <!-- Wall art in the front room -->
-      <a-entity position="-5.78 1.62 2" rotation="0 90 0">
+      <!-- Decorative restaurant entrance, also usable as the second exit after the map challenge -->
+      <a-entity class="clickable" data-action="exit" data-object="entry-exit" position="-5.78 1.62 2" rotation="0 90 0">
         <a-box width="2.28" height="3.24" depth="0.16" material="color: #493328; roughness: 0.76"></a-box>
         <a-box width="1.86" height="2.98" depth="0.12" position="0 0 0.1" material="color: #c59a5b; roughness: 0.58"></a-box>
         <a-box width="1.58" height="2.72" depth="0.08" position="0 -0.06 0.17" material="color: #68432d; roughness: 0.7"></a-box>
@@ -581,13 +609,15 @@
     <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
       <section class="panel">
         <button id="close-modal" class="close" type="button" aria-label="Cerrar">×</button>
-        <div class="panel-kicker">EXPEDIENTE INTERACTIVO <span id="panel-count"></span></div>
-        <h1 id="modal-title"></h1>
-        <div id="modal-body" class="panel-body"></div>
-        <div id="feedback" class="feedback" aria-live="polite"></div>
-        <div class="panel-actions">
-          <button id="back-btn" class="button secondary hidden" type="button">← Anterior</button>
-          <button id="action-btn" class="button hidden" type="button"></button>
+        <div class="panel-scroll">
+          <div class="panel-kicker">EXPEDIENTE INTERACTIVO <span id="panel-count"></span></div>
+          <h1 id="modal-title"></h1>
+          <div id="modal-body" class="panel-body"></div>
+          <div id="feedback" class="feedback" aria-live="polite"></div>
+          <div class="panel-actions">
+            <button id="back-btn" class="button secondary hidden" type="button">← Anterior</button>
+            <button id="action-btn" class="button hidden" type="button"></button>
+          </div>
         </div>
       </section>
     </div>
